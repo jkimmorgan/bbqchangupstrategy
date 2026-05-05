@@ -1,2959 +1,1278 @@
-<!DOCTYPE html>
-<html lang="ko">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BBQ 창업 성과 개선 전략 제안서</title>
-  <style>
-    :root {
-      --navy: #592202;
-      --navy-2: #f2a007;
-      --ink: #592202;
-      --muted: #7a5746;
-      --line: #f2b6c1;
-      --panel: #ffffff;
-      --panel-2: #fff4f7;
-      --teal: #592202;
-      --sky: #d9718c;
-      --gold: #f2a007;
-      --red: #f20505;
-      --accent: #d9718c;
-      --accent-2: #f2b6c1;
-      --white: #ffffff;
-      --shadow: 0 22px 48px rgba(89, 34, 2, 0.12);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
-      --display: "Avenir Next", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
-      --body: "Avenir Next", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: var(--body);
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 88% 8%, rgba(217, 113, 140, 0.12), transparent 26%),
-        radial-gradient(circle at 7% 88%, rgba(242, 182, 193, 0.14), transparent 20%),
-        linear-gradient(180deg, #ffffff 0%, #fff8fb 58%, #fffdfb 100%);
-      padding-left: 126px;
-      word-break: keep-all;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255, 255, 255, 0) 23px, rgba(89, 34, 2, 0.025) 24px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0) 23px, rgba(89, 34, 2, 0.025) 24px);
-      background-size: 24px 24px;
-      mask-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.45) 20%, rgba(0, 0, 0, 0.2) 100%);
-    }
-
-    a {
-      color: inherit;
-    }
-
-    .rail {
-      position: fixed;
-      inset: 0 auto 0 0;
-      width: 126px;
-      background: rgba(255, 255, 255, 0.94);
-      border-right: 1px solid rgba(89, 34, 2, 0.12);
-      backdrop-filter: blur(18px);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 24px 16px 18px;
-      z-index: 30;
-    }
-
-    .brand {
-      display: grid;
-      gap: 16px;
-    }
-
-    .brand-mark {
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
-      background: linear-gradient(145deg, #592202, #d9718c);
-      color: var(--white);
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      box-shadow: 0 18px 35px rgba(89, 34, 2, 0.22);
-    }
-
-    .brand-copy {
-      font-size: 11px;
-      line-height: 1.55;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .slide-nav {
-      display: grid;
-      gap: 6px;
-      margin-top: 10px;
-    }
-
-    .slide-nav a {
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--muted);
-      transition: 0.25s ease;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .slide-nav a::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(89, 34, 2, 0.24);
-      transition: 0.25s ease;
-    }
-
-    .slide-nav a.active,
-    .slide-nav a:hover {
-      color: var(--navy);
-      background: rgba(217, 113, 140, 0.12);
-    }
-
-    .slide-nav a.active::before,
-    .slide-nav a:hover::before {
-      background: var(--navy);
-      transform: scale(1.35);
-    }
-
-    .progress {
-      display: grid;
-      gap: 8px;
-      align-items: end;
-    }
-
-    .progress .label {
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .progress .count {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--navy);
-      letter-spacing: -0.03em;
-    }
-
-    .deck {
-      scroll-snap-type: y proximity;
-    }
-
-    .slide {
-      min-height: 100vh;
-      padding: 40px 44px 30px;
-      position: relative;
-      scroll-snap-align: start;
-      display: flex;
-      align-items: center;
-    }
-
-    .slide-shell {
-      width: min(1240px, 100%);
-      margin: 0 auto;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      gap: 18px;
-    }
-
-    .slide-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .section-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(217, 113, 140, 0.14);
-      color: var(--navy);
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    .section-tag::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--navy);
-    }
-
-    .slide-index {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      color: var(--muted);
-    }
-
-    .title-wrap {
-      display: grid;
-      gap: 10px;
-      max-width: 1000px;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    p {
-      margin: 0;
-    }
-
-    .title {
-      font-family: var(--display);
-      font-size: clamp(2rem, 3.15vw, 3.8rem);
-      line-height: 1.08;
-      letter-spacing: -0.04em;
-      max-width: 1000px;
-    }
-
-    .subtitle {
-      font-size: 17px;
-      line-height: 1.55;
-      color: var(--muted);
-      max-width: 920px;
-    }
-
-    .footnote {
-      font-size: 12px;
-      line-height: 1.5;
-      color: var(--muted);
-    }
-
-    .grid-2,
-    .grid-3,
-    .grid-4 {
-      display: grid;
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .grid-2 {
-      grid-template-columns: 1.15fr 0.85fr;
-    }
-
-    .grid-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .grid-4 {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.97);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      padding: 20px 22px;
-      box-shadow: var(--shadow);
-      display: grid;
-      gap: 12px;
-    }
-
-    .card.flat {
-      box-shadow: none;
-      background: var(--panel);
-    }
-
-    .card.dark {
-      background: linear-gradient(165deg, #592202, #91504a 55%, #d9718c 100%);
-      color: var(--white);
-      border-color: rgba(255, 255, 255, 0.18);
-    }
-
-    .card.highlight {
-      background: linear-gradient(145deg, rgba(217, 113, 140, 0.12), rgba(242, 182, 193, 0.18));
-    }
-
-    .card h3 {
-      font-size: 18px;
-      line-height: 1.25;
-      letter-spacing: -0.02em;
-    }
-
-    .eyebrow {
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--navy);
-      text-transform: uppercase;
-      letter-spacing: 0.13em;
-    }
-
-    .dark .eyebrow {
-      color: rgba(255, 255, 255, 0.84);
-    }
-
-    .muted {
-      color: var(--muted);
-      line-height: 1.56;
-      font-size: 14px;
-    }
-
-    .metric-row {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .metric {
-      padding: 16px 18px;
-      border-radius: 20px;
-      background: rgba(255, 250, 247, 0.97);
-      border: 1px solid rgba(89, 34, 2, 0.14);
-      color: var(--ink);
-      box-shadow: 0 14px 28px rgba(89, 34, 2, 0.12);
-      display: grid;
-      gap: 6px;
-    }
-
-    .metric .value {
-      font-size: clamp(1.6rem, 2vw, 2.35rem);
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -0.04em;
-      color: var(--ink);
-    }
-
-    .metric .label {
-      font-size: 12px;
-      color: #7a5746;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 700;
-    }
-
-    .dark .metric {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.16);
-      color: var(--white);
-    }
-
-    .dark .metric .value,
-    .dark .metric .label,
-    .dark .muted {
-      color: rgba(255, 255, 255, 0.84);
-    }
-
-    .bullet-list {
-      display: grid;
-      gap: 9px;
-      padding: 0;
-      margin: 0;
-      list-style: none;
-    }
-
-    .bullet-list li {
-      display: grid;
-      grid-template-columns: 18px 1fr;
-      gap: 8px;
-      align-items: start;
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .bullet-list li::before {
-      content: "•";
-      color: var(--navy);
-      font-weight: 900;
-      line-height: 1;
-      margin-top: 2px;
-    }
-
-    .process {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .process-step {
-      position: relative;
-      padding: 16px 16px 16px 18px;
-      border-radius: 20px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      overflow: hidden;
-    }
-
-    .process-step::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, rgba(217, 113, 140, 0.12), transparent 58%);
-      pointer-events: none;
-    }
-
-    .process-step .num {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--navy);
-      margin-bottom: 8px;
-    }
-
-    .process-step h4 {
-      font-size: 15px;
-      line-height: 1.3;
-      margin-bottom: 6px;
-    }
-
-    .process-step p {
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--muted);
-    }
-
-    .page-anatomy {
-      display: grid;
-      gap: 10px;
-    }
-
-    .page-block {
-      padding: 14px 16px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background: linear-gradient(135deg, rgba(217, 113, 140, 0.12), rgba(242, 182, 193, 0.16));
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .page-block span:last-child {
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .cause-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .cause {
-      padding: 18px 18px 16px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid var(--line);
-      display: grid;
-      gap: 10px;
-    }
-
-    .cause .icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: rgba(217, 113, 140, 0.16);
-      color: var(--navy);
-      font-size: 18px;
-      font-weight: 800;
-    }
-
-    .callout {
-      padding: 18px 20px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, rgba(217, 113, 140, 0.08), rgba(242, 160, 7, 0.1));
-      border: 1px solid rgba(217, 113, 140, 0.22);
-      font-size: 15px;
-      line-height: 1.55;
-      font-weight: 700;
-      color: var(--ink);
-      box-shadow: 0 10px 24px rgba(89, 34, 2, 0.06);
-    }
-
-    .persona-card {
-      padding: 20px;
-      border-radius: 24px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.94);
-      box-shadow: var(--shadow);
-      display: grid;
-      gap: 14px;
-    }
-
-    .persona-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: start;
-    }
-
-    .persona-head .icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(145deg, rgba(217, 113, 140, 0.14), rgba(242, 182, 193, 0.18));
-      font-size: 20px;
-    }
-
-    .persona-tag {
-      display: inline-flex;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(217, 113, 140, 0.14);
-      color: var(--navy);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .mini-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .mini-stat {
-      padding: 10px 12px;
-      border-radius: 16px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      display: grid;
-      gap: 4px;
-    }
-
-    .mini-stat .k {
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-    }
-
-    .mini-stat .v {
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 1.4;
-    }
-
-    .journey {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 6px;
-    }
-
-    .journey-step {
-      padding: 14px 12px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(217, 113, 140, 0.1), rgba(242, 182, 193, 0.12));
-      border: 1px solid var(--line);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .journey-step strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 12px;
-      color: var(--navy);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .matrix-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      line-height: 1.45;
-      overflow: hidden;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.95);
-      box-shadow: var(--shadow);
-    }
-
-    .matrix-table th,
-    .matrix-table td {
-      padding: 13px 12px;
-      border-bottom: 1px solid var(--line);
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .matrix-table th {
-      background: rgba(217, 113, 140, 0.14);
-      font-size: 11px;
-      color: var(--navy);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .matrix-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .matrix-table .brand-row {
-      background: rgba(242, 182, 193, 0.16);
-    }
-
-    .score {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 56px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .score.high {
-      color: var(--teal);
-      background: rgba(242, 182, 193, 0.24);
-    }
-
-    .score.mid {
-      color: var(--gold);
-      background: rgba(242, 160, 7, 0.18);
-    }
-
-    .score.low {
-      color: var(--red);
-      background: rgba(242, 5, 5, 0.12);
-    }
-
-    .funnel-wrap {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .funnel-col {
-      padding: 18px 18px 20px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      display: grid;
-      gap: 12px;
-    }
-
-    .funnel-col h3 {
-      font-size: 18px;
-    }
-
-    .funnel-metrics {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .chip {
-      display: inline-flex;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--navy);
-    }
-
-    .funnel {
-      display: grid;
-      gap: 10px;
-      padding-top: 4px;
-    }
-
-    .funnel-step {
-      width: var(--w);
-      margin-inline: auto;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: linear-gradient(90deg, var(--navy), var(--navy-2));
-      color: var(--white);
-      box-shadow: 0 14px 28px rgba(89, 34, 2, 0.18);
-    }
-
-    .funnel-step.alt {
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    }
-
-    .funnel-step .top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: baseline;
-    }
-
-    .funnel-step .stage {
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 800;
-      opacity: 0.85;
-    }
-
-    .funnel-step .count {
-      font-size: 28px;
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -0.04em;
-    }
-
-    .funnel-step .meta {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 8px;
-      font-size: 12px;
-      opacity: 0.86;
-    }
-
-    .big-funnel {
-      display: grid;
-      gap: 18px;
-      padding: 8px 6px 8px;
-      align-items: center;
-      justify-items: center;
-    }
-
-    .big-funnel-step {
-      position: relative;
-      width: var(--w);
-      max-width: 100%;
-      min-height: 114px;
-      clip-path: polygon(6% 0, 94% 0, 100% 100%, 0 100%);
-      border-radius: 18px;
-      padding: 22px clamp(44px, 5vw, 72px) 18px clamp(58px, 7vw, 92px);
-      color: var(--white);
-      background: linear-gradient(135deg, #592202, #8a3f24 62%, #c96378 100%);
-      box-shadow: 0 18px 30px rgba(89, 34, 2, 0.16);
-      display: grid;
-      align-content: center;
-      gap: 8px;
-      box-sizing: border-box;
-    }
-
-    .big-funnel-step.mid {
-      background: linear-gradient(135deg, #7a2d12, #a64d2e 62%, #d9718c 100%);
-    }
-
-    .big-funnel-step.low {
-      background: linear-gradient(135deg, #9b3410, #bd5d24 62%, #f2a007 100%);
-    }
-
-    .big-funnel-step .k {
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      opacity: 0.86;
-      line-height: 1.2;
-    }
-
-    .big-funnel-step .v {
-      font-size: 38px;
-      line-height: 0.96;
-      font-weight: 800;
-      letter-spacing: -0.05em;
-    }
-
-    .big-funnel-step .d {
-      font-size: 14px;
-      line-height: 1.5;
-      color: rgba(255, 255, 255, 0.9);
-      max-width: 92%;
-    }
-
-    .solution-stack {
-      display: grid;
-      gap: 12px;
-    }
-
-    .solution-item {
-      padding: 16px 18px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background: linear-gradient(135deg, rgba(217, 113, 140, 0.1), rgba(242, 182, 193, 0.14));
-      display: grid;
-      gap: 6px;
-    }
-
-    .solution-item strong {
-      font-size: 16px;
-      line-height: 1.3;
-    }
-
-    .solution-item span {
-      font-size: 14px;
-      line-height: 1.55;
-      color: var(--muted);
-    }
-
-    .pillar-strip {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .pillar {
-      position: relative;
-      padding: 22px;
-      border-radius: 26px;
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      display: grid;
-      gap: 12px;
-      overflow: hidden;
-    }
-
-    .pillar::after {
-      content: "";
-      position: absolute;
-      inset: auto -15% -35% 35%;
-      height: 180px;
-      background: radial-gradient(circle, rgba(217, 113, 140, 0.18), transparent 62%);
-      pointer-events: none;
-    }
-
-    .pillar .num {
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--navy);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    .pillar h3 {
-      font-size: 22px;
-      line-height: 1.18;
-    }
-
-    .pillar .outcome {
-      margin-top: auto;
-      padding: 12px 14px;
-      border-radius: 18px;
-      background: rgba(242, 182, 193, 0.18);
-      border: 1px solid rgba(217, 113, 140, 0.16);
-      font-size: 13px;
-      line-height: 1.5;
-      font-weight: 700;
-    }
-
-    .chart {
-      display: grid;
-      gap: 10px;
-    }
-
-    .chart-row {
-      display: grid;
-      grid-template-columns: 145px 1fr 42px;
-      gap: 10px;
-      align-items: center;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .bar-track {
-      height: 16px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(242, 182, 193, 0.32), rgba(217, 113, 140, 0.18));
-      overflow: hidden;
-    }
-
-    .bar-fill {
-      height: 100%;
-      width: var(--pct);
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--navy), var(--sky));
-    }
-
-    .bar-fill.teal {
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    }
-
-    .region-stack {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .region-pill {
-      padding: 12px 10px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid var(--line);
-      text-align: center;
-      font-size: 13px;
-      line-height: 1.35;
-      box-shadow: var(--shadow);
-    }
-
-    .region-pill strong {
-      display: block;
-      font-size: 20px;
-      line-height: 1;
-      margin-bottom: 6px;
-      letter-spacing: -0.04em;
-      color: var(--navy);
-    }
-
-    .content-engine {
-      display: grid;
-      gap: 12px;
-    }
-
-    .engine-row {
-      display: grid;
-      grid-template-columns: 140px 1fr;
-      gap: 12px;
-      align-items: start;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-    }
-
-    .engine-row strong {
-      color: var(--navy);
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .wireframe {
-      padding: 18px;
-      border-radius: 26px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.97);
-      box-shadow: var(--shadow);
-      display: grid;
-      gap: 12px;
-    }
-
-    .wf-tabs {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .wf-tab {
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      color: var(--navy);
-    }
-
-    .wf-tab.active {
-      background: var(--navy);
-      color: var(--white);
-      border-color: var(--navy);
-    }
-
-    .wf-hero {
-      padding: 18px;
-      border-radius: 22px;
-      background: linear-gradient(140deg, rgba(89, 34, 2, 0.98), rgba(217, 113, 140, 0.92));
-      color: var(--white);
-      display: grid;
-      gap: 10px;
-    }
-
-    .wf-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .wf-badges span {
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.16);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      font-size: 11px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-weight: 800;
-    }
-
-    .wf-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 12px;
-    }
-
-    .wf-panel {
-      padding: 14px;
-      border-radius: 18px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      display: grid;
-      gap: 10px;
-    }
-
-    .wf-cards {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .wf-card {
-      padding: 12px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid var(--line);
-      display: grid;
-      gap: 4px;
-      font-size: 12px;
-    }
-
-    .wf-form {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .wf-input {
-      min-height: 42px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.96);
-      padding: 10px 12px;
-      font-size: 12px;
-      color: var(--ink);
-      display: flex;
-      align-items: center;
-    }
-
-    .wf-button {
-      padding: 12px;
-      border-radius: 14px;
-      background: var(--navy);
-      color: var(--white);
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      text-align: center;
-    }
-
-    .stack-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .stack-item {
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.94);
-      border: 1px solid var(--line);
-      display: grid;
-      gap: 6px;
-    }
-
-    .stack-item strong {
-      font-size: 14px;
-      color: var(--navy);
-    }
-
-    .architecture {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-      align-items: stretch;
-    }
-
-    .node {
-      position: relative;
-      padding: 18px 16px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.94);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      display: grid;
-      gap: 10px;
-    }
-
-    .node:not(:last-child)::after {
-      content: "→";
-      position: absolute;
-      right: -16px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 20px;
-      font-weight: 900;
-      color: var(--navy);
-    }
-
-    .node .tool {
-      display: inline-flex;
-      width: fit-content;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(217, 113, 140, 0.14);
-      color: var(--navy);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .usecase-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      line-height: 1.48;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 22px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .usecase-table th,
-    .usecase-table td {
-      padding: 12px 12px;
-      border-bottom: 1px solid var(--line);
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .usecase-table th {
-      background: rgba(217, 113, 140, 0.14);
-      color: var(--navy);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .usecase-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .guardrail {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .guardrail .item {
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(217, 113, 140, 0.12), rgba(242, 160, 7, 0.12));
-      border: 1px solid rgba(217, 113, 140, 0.16);
-      font-size: 13px;
-      line-height: 1.5;
-      font-weight: 700;
-    }
-
-    .compare-table {
-      width: 100%;
-      border-collapse: collapse;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      background: rgba(255, 255, 255, 0.95);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .compare-table th,
-    .compare-table td {
-      padding: 13px 12px;
-      border-bottom: 1px solid var(--line);
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .compare-table th {
-      background: rgba(217, 113, 140, 0.14);
-      color: var(--navy);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .compare-table tr.reco td {
-      background: rgba(242, 182, 193, 0.16);
-    }
-
-    .roadmap {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .phase {
-      padding: 18px 18px 16px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      display: grid;
-      gap: 12px;
-    }
-
-    .phase .window {
-      display: inline-flex;
-      width: fit-content;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(217, 113, 140, 0.14);
-      color: var(--navy);
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .owner-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: auto;
-    }
-
-    .owner-tags span {
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .kpi-row {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .kpi-pill {
-      padding: 14px 12px;
-      border-radius: 18px;
-      background: linear-gradient(145deg, rgba(217, 113, 140, 0.12), rgba(242, 182, 193, 0.18));
-      border: 1px solid var(--line);
-      text-align: center;
-    }
-
-    .kpi-pill strong {
-      display: block;
-      font-size: 20px;
-      line-height: 1;
-      margin-bottom: 6px;
-      color: var(--navy);
-      letter-spacing: -0.04em;
-    }
-
-    .scenario-layout {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 18px;
-    }
-
-    .scenario-bars {
-      height: 250px;
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-      align-items: end;
-      padding-top: 10px;
-    }
-
-    .bar-card {
-      display: grid;
-      gap: 10px;
-      justify-items: center;
-    }
-
-    .v-bar {
-      width: 100%;
-      height: var(--h);
-      min-height: 70px;
-      border-radius: 20px 20px 10px 10px;
-      background: linear-gradient(180deg, var(--navy-2), var(--navy));
-      box-shadow: 0 18px 30px rgba(89, 34, 2, 0.18);
-      display: flex;
-      align-items: end;
-      justify-content: center;
-      padding-bottom: 14px;
-      color: var(--white);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      font-size: 22px;
-    }
-
-    .v-bar.alt {
-      background: linear-gradient(180deg, var(--accent-2), var(--accent));
-    }
-
-    .v-bar-label {
-      text-align: center;
-      font-size: 12px;
-      line-height: 1.45;
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    .risk-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .risk-card {
-      padding: 20px 18px;
-      border-radius: 24px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.95);
-      box-shadow: var(--shadow);
-      display: grid;
-      gap: 12px;
-    }
-
-    .risk-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .severity {
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .severity.high {
-      background: rgba(242, 5, 5, 0.12);
-      color: var(--red);
-    }
-
-    .severity.mid {
-      background: rgba(242, 160, 7, 0.18);
-      color: var(--gold);
-    }
-
-    .source-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 18px;
-    }
-
-    .source-list {
-      display: grid;
-      gap: 10px;
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    .source-item {
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid var(--line);
-    }
-
-    .source-item strong {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--navy);
-    }
-
-    .tool-shortlist {
-      display: grid;
-      gap: 12px;
-    }
-
-    .tool-card {
-      padding: 16px;
-      border-radius: 20px;
-      background: linear-gradient(145deg, rgba(217, 113, 140, 0.12), rgba(242, 182, 193, 0.16));
-      border: 1px solid rgba(217, 113, 140, 0.16);
-      display: grid;
-      gap: 6px;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .tool-card strong {
-      color: var(--navy);
-    }
-
-    .cover-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 20px;
-      align-items: stretch;
-    }
-
-    .hero-box {
-      position: relative;
-      overflow: hidden;
-      padding: 34px 36px;
-      border-radius: 32px;
-      background: linear-gradient(160deg, #431702 0%, #74311b 48%, #bf5f75 100%);
-      color: var(--white);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 28px 50px rgba(89, 34, 2, 0.28);
-      display: grid;
-      gap: 20px;
-    }
-
-    .hero-box::before,
-    .hero-box::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .hero-box::before {
-      width: 360px;
-      height: 360px;
-      right: -120px;
-      top: -140px;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.12), transparent 62%);
-    }
-
-    .hero-box::after {
-      width: 260px;
-      height: 260px;
-      left: -110px;
-      bottom: -120px;
-      background: radial-gradient(circle, rgba(242, 182, 193, 0.34), transparent 62%);
-    }
-
-    .hero-box .kicker {
-      font-size: 12px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-weight: 800;
-      color: rgba(255, 248, 244, 0.92);
-    }
-
-    .hero-box .hero-title {
-      font-family: var(--display);
-      font-size: clamp(2rem, 3.05vw, 3.95rem);
-      line-height: 1.05;
-      letter-spacing: -0.05em;
-      max-width: 700px;
-      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.1);
-    }
-
-    .hero-box .hero-sub {
-      font-size: 15.5px;
-      line-height: 1.68;
-      color: rgba(255, 249, 245, 0.96);
-      width: min(620px, 100%);
-      justify-self: start;
-      padding: 16px 18px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(4px);
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 6px;
-    }
-
-    .hero-meta span {
-      padding: 9px 14px;
-      border-radius: 999px;
-      background: rgba(255, 248, 244, 0.94);
-      border: 1px solid rgba(89, 34, 2, 0.12);
-      color: var(--ink);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .cover-side {
-      display: grid;
-      gap: 16px;
-    }
-
-    .quote-box {
-      padding: 22px 22px 18px;
-      border-radius: 28px;
-      background: rgba(255, 255, 255, 0.98);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      display: grid;
-      gap: 12px;
-    }
-
-    .quote-box .quote {
-      font-family: var(--display);
-      font-size: 30px;
-      line-height: 1.14;
-      letter-spacing: -0.04em;
-      color: var(--navy);
-      max-width: 460px;
-    }
-
-    .quote-box .quote-sub {
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--muted);
-    }
-
-    .legend {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .legend span {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    .legend span::before {
-      content: "";
-      width: 14px;
-      height: 14px;
-      border-radius: 4px;
-      background: linear-gradient(180deg, var(--navy-2), var(--navy));
-    }
-
-    .legend span.alt::before {
-      background: linear-gradient(180deg, var(--accent-2), var(--accent));
-    }
-
-    @media (max-width: 1180px) {
-      .grid-2,
-      .scenario-layout,
-      .cover-grid,
-      .source-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .grid-4,
-      .pillar-strip,
-      .roadmap,
-      .risk-grid,
-      .process,
-      .architecture,
-      .guardrail,
-      .kpi-row,
-      .journey,
-      .region-stack {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .metric-row,
-      .grid-3,
-      .funnel-wrap {
-        grid-template-columns: 1fr;
-      }
-
-      .cause-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 900px) {
-      body {
-        padding-left: 0;
-        padding-top: 92px;
-      }
-
-      .rail {
-        width: auto;
-        height: 92px;
-        right: 0;
-        bottom: auto;
-        flex-direction: row;
-        align-items: center;
-        gap: 14px;
-        padding: 14px 16px;
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .brand-copy {
-        display: none;
-      }
-
-      .slide-nav {
-        display: flex;
-        gap: 6px;
-        overflow-x: auto;
-        margin: 0;
-        padding-bottom: 4px;
-      }
-
-      .slide-nav a {
-        white-space: nowrap;
-      }
-
-      .progress {
-        display: none;
-      }
-
-      .slide {
-        min-height: auto;
-        padding: 30px 18px 26px;
-      }
-
-      .slide-shell {
-        gap: 14px;
-      }
-
-      .title {
-        font-size: clamp(1.7rem, 7vw, 2.6rem);
-      }
-
-      .subtitle {
-        font-size: 15px;
-      }
-
-      .grid-4,
-      .pillar-strip,
-      .roadmap,
-      .risk-grid,
-      .process,
-      .architecture,
-      .guardrail,
-      .kpi-row,
-      .journey,
-      .region-stack,
-      .mini-grid,
-      .wf-grid,
-      .wf-form,
-      .wf-cards {
-        grid-template-columns: 1fr;
-      }
-
-      .chart-row,
-      .engine-row {
-        grid-template-columns: 1fr;
-      }
-
-      .node:not(:last-child)::after {
-        content: "↓";
-        right: auto;
-        left: 50%;
-        top: auto;
-        bottom: -18px;
-        transform: translateX(-50%);
-      }
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LAST MILE DROPS · BBQ × DoorDash Coachella 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A1F44;
+    --navy-soft: #14305C;
+    --navy-deep: #061533;
+    --bbq-red: #C8102E;
+    --dd-red: #EB1700;
+    --cream: #F5F0E6;
+    --cream-soft: #FBF8F1;
+    --white: #FFFFFF;
+    --charcoal: #1F2937;
+    --ink: #111827;
+    --muted: #5B6472;
+    --light-rule: #E5E9EF;
+    --good: #2E7D4F;
+    --amber: #B45309;
+    --gold: #D4A017;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: #1F2933;
+    font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+    color: var(--charcoal);
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "tnum";
+  }
+  .deck { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 24px; }
+  .slide {
+    width: min(1280px, 96vw);
+    aspect-ratio: 16/9;
+    background: var(--cream-soft);
+    color: var(--charcoal);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 36px 52px 42px;
+  }
+  .slide.cover { padding: 0; background: var(--navy); }
+  .slide.dark { background: var(--navy); color: var(--cream-soft); }
+  .slide.red { background: var(--bbq-red); color: var(--cream-soft); }
+  .slide-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+  .header-title-bar { display: flex; align-items: baseline; gap: 12px; }
+  .header-title-bar .ht-num { font-size: 11px; letter-spacing: 1.5px; color: var(--bbq-red); font-weight: 700; }
+  .header-title-bar .ht-section { font-size: 14px; color: var(--navy); font-weight: 500; }
+  .header-mark { font-size: 10.5px; letter-spacing: 2px; color: var(--muted); font-weight: 700; }
+  .header-mark .bbq { color: var(--bbq-red); }
+  .header-mark .dd { color: var(--dd-red); }
+  .slide.dark .header-title-bar .ht-num { color: #FF8B97; }
+  .slide.dark .header-title-bar .ht-section { color: var(--cream-soft); }
+  .slide.dark .header-mark { color: rgba(245,240,230,0.7); }
+  .header-rule { height: 1.5px; background: var(--light-rule); margin: 6px 0 14px; }
+  .slide.dark .header-rule { background: rgba(245,240,230,0.2); }
+  h1.takeaway {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 28px; line-height: 1.22; font-weight: 700; color: var(--navy);
+    max-width: 96%; margin-bottom: 10px; letter-spacing: -0.3px;
+  }
+  h1.takeaway .bbq { color: var(--bbq-red); }
+  h1.takeaway .dd { color: var(--dd-red); }
+  h1.takeaway .accent { color: var(--bbq-red); }
+  .slide.dark h1.takeaway { color: var(--cream-soft); }
+  .slide.dark h1.takeaway .bbq { color: #FF8B97; }
+  .slide.dark h1.takeaway .dd { color: #FF7A6B; }
+  p, li { font-size: 13px; line-height: 1.55; color: var(--charcoal); }
+  .slide.dark p, .slide.dark li { color: rgba(245,240,230,0.92); }
+  ul.bullets { list-style: none; }
+  ul.bullets li { position: relative; padding-left: 16px; margin-bottom: 5px; font-size: 12.5px; line-height: 1.55; }
+  ul.bullets li::before { content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; background: var(--bbq-red); border-radius: 50%; }
+  ul.bullets.dd li::before { background: var(--dd-red); }
+  h3.section { font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 8px; }
+  .slide.dark h3.section { color: rgba(245,240,230,0.65); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .four-col { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  table th { text-align: left; padding: 7px 10px; background: var(--navy); color: var(--cream-soft); font-weight: 700; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.3px; }
+  table td { padding: 6px 10px; border-bottom: 1px solid var(--light-rule); vertical-align: middle; font-variant-numeric: tabular-nums; }
+  table tr:last-child td { border-bottom: none; }
+  table td.num { text-align: right; }
+  table td.ctr { text-align: center; }
+  table tr.highlight td { background: #FFF6E8; font-weight: 700; border-top: 2px solid var(--bbq-red); }
+  table tr.dd-row td { background: #FFEDE9; font-weight: 700; border-top: 2px solid var(--dd-red); }
+  .slide.dark table td { border-color: rgba(255,255,255,0.15); color: rgba(245,240,230,0.92); }
+  .slide.dark table tr.highlight td { background: rgba(200,16,46,0.12); color: var(--cream-soft); }
+  .card { background: var(--white); border: 1px solid var(--light-rule); padding: 12px 14px; border-radius: 3px; }
+  .card.dark-card { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18); }
+  .card h4 { font-size: 10.5px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--bbq-red); font-weight: 700; margin-bottom: 6px; }
+  .card.dd-card h4 { color: var(--dd-red); }
+  .slide.dark .card h4 { color: #FF8B97; }
+  .card .metric-val { font-family: "Playfair Display", Georgia, serif; font-size: 32px; font-weight: 700; color: var(--navy); line-height: 1; margin: 4px 0; }
+  .slide.dark .card .metric-val { color: var(--cream-soft); }
+  .card p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .slide.dark .card p { color: rgba(245,240,230,0.85); }
+  .hero-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 4px; }
+  .hero-metric { background: var(--white); border: 1px solid var(--light-rule); border-top: 3px solid var(--dd-red); border-radius: 3px; padding: 14px 16px; }
+  .hero-metric.gold-acc { border-top-color: var(--gold); background: #FFFAF0; }
+  .hero-metric .hm-label { font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 4px; }
+  .hero-metric .hm-val { font-family: "Playfair Display", Georgia, serif; font-size: 32px; font-weight: 700; color: var(--navy); line-height: 1; margin-bottom: 4px; }
+  .hero-metric .hm-sub { font-size: 11.5px; color: var(--muted); line-height: 1.45; }
+  .insight-box { background: rgba(235,23,0,0.06); border-left: 3px solid var(--dd-red); padding: 10px 14px; border-radius: 2px; }
+  .insight-box.dark-bg { background: rgba(255,255,255,0.06); border-left-color: #FF8B97; }
+  .insight-box h5 { font-size: 10.5px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--dd-red); font-weight: 700; margin-bottom: 4px; }
+  .insight-box.dark-bg h5 { color: #FF8B97; }
+  .insight-box p { font-size: 12px; line-height: 1.55; color: var(--charcoal); }
+  .insight-box.dark-bg p { color: rgba(245,240,230,0.92); }
+  .source-line { position: absolute; bottom: 16px; left: 52px; right: 90px; font-size: 9.5px; color: var(--muted); font-style: italic; line-height: 1.4; }
+  .slide.dark .source-line { color: rgba(245,240,230,0.55); }
+  .slide-num { position: absolute; right: 22px; bottom: 16px; font-size: 10px; letter-spacing: 1.2px; color: var(--muted); font-weight: 600; }
+  .slide.dark .slide-num, .slide.red .slide-num { color: rgba(255,255,255,0.6); }
+  .cobrand-lockup { display: inline-flex; align-items: center; gap: 16px; padding: 10px 18px; background: var(--white); border-radius: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+  .cobrand-lockup .cl-bbq { font-size: 18px; font-weight: 800; color: var(--bbq-red); letter-spacing: 0.5px; }
+  .cobrand-lockup .cl-bbq span { color: var(--ink); }
+  .cobrand-lockup .cl-x { font-family: "Playfair Display", Georgia, serif; font-size: 22px; color: var(--ink); font-weight: 400; font-style: italic; }
+  .cobrand-lockup .cl-dd { font-size: 18px; font-weight: 800; color: var(--dd-red); letter-spacing: 0.5px; }
+  .cover-bg { position: absolute; inset: 0; z-index: 0; background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 50%, var(--navy-soft) 100%); }
+  .cover-bg::before { content: ""; position: absolute; right: -150px; top: -150px; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(235,23,0,0.18) 0%, transparent 70%); }
+  .cover-bg::after { content: ""; position: absolute; left: -250px; bottom: -250px; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(200,16,46,0.14) 0%, transparent 70%); }
+  .cover-content { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 48px 64px 96px; color: var(--cream-soft); }
+  .cover-eyebrow { font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: #FF8B97; font-weight: 700; margin-bottom: 16px; }
+  .cover-content .lmd-mark { font-family: "Playfair Display", Georgia, serif; font-size: 64px; font-weight: 900; color: var(--cream-soft); line-height: 0.95; letter-spacing: -2px; margin-bottom: 8px; }
+  .cover-content .lmd-mark .lm { color: var(--cream-soft); }
+  .cover-content .lmd-mark .drops { color: #FF7A6B; font-style: italic; }
+  .cover-content h1 { font-family: "Playfair Display", Georgia, serif; font-size: 24px; font-weight: 600; color: rgba(245,240,230,0.95); line-height: 1.25; letter-spacing: -0.3px; margin-bottom: 14px; max-width: 88%; }
+  .cover-content .cover-sub { font-size: 15px; color: rgba(245,240,230,0.85); line-height: 1.5; max-width: 80%; margin-bottom: 16px; }
+  .cover-content .cover-sub strong { color: var(--cream-soft); }
+  .cover-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cover-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.22); color: var(--cream-soft); font-size: 11.5px; font-weight: 600; padding: 6px 12px; border-radius: 30px; }
+  .cover-footer { position: absolute; bottom: 24px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 64px; z-index: 2; align-items: center; }
+  .cover-footer-text { font-size: 11px; color: rgba(245,240,230,0.7); letter-spacing: 1.2px; }
+  /* Drop card */
+  .drop-card { background: var(--white); border: 1px solid var(--light-rule); border-radius: 3px; padding: 14px 16px; display: flex; flex-direction: column; border-top: 3px solid var(--dd-red); }
+  .drop-card.d2 { border-top-color: var(--bbq-red); }
+  .drop-card.d3 { border-top-color: var(--gold); }
+  .drop-card.d4 { border-top-color: var(--good); }
+  .drop-card.d5 { border-top-color: var(--navy); }
+  .drop-card .dc-icon-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .drop-card .dc-icon { width: 36px; height: 36px; border-radius: 50%; background: #FFEDE9; color: var(--dd-red); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .drop-card.d2 .dc-icon { background: #FFE0E5; color: var(--bbq-red); }
+  .drop-card.d3 .dc-icon { background: #FFF1D0; color: var(--gold); }
+  .drop-card.d4 .dc-icon { background: #E0F4E8; color: var(--good); }
+  .drop-card.d5 .dc-icon { background: rgba(10,31,68,0.1); color: var(--navy); }
+  .drop-card .dc-tag { font-size: 9.5px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 700; color: var(--dd-red); }
+  .drop-card.d2 .dc-tag { color: var(--bbq-red); }
+  .drop-card.d3 .dc-tag { color: var(--gold); }
+  .drop-card.d4 .dc-tag { color: var(--good); }
+  .drop-card.d5 .dc-tag { color: var(--navy); }
+  .drop-card h4 { font-family: "Playfair Display", Georgia, serif; font-size: 16px; color: var(--navy); font-weight: 700; line-height: 1.2; margin-bottom: 4px; }
+  .drop-card ul.bullets li { font-size: 11px; padding-left: 12px; margin-bottom: 3px; }
+  .drop-card ul.bullets li::before { top: 6px; width: 5px; height: 5px; }
+  .drop-card .dc-footer { margin-top: auto; padding-top: 8px; border-top: 1px dashed var(--light-rule); font-size: 10.5px; color: var(--muted); font-style: italic; }
+  /* Reason card */
+  .reason-card { background: var(--white); border: 1px solid var(--light-rule); border-radius: 3px; padding: 12px 14px; display: flex; flex-direction: column; border-left: 3px solid var(--bbq-red); }
+  .reason-card .rc-num { font-family: "Playfair Display", Georgia, serif; font-size: 28px; color: var(--bbq-red); line-height: 1; font-weight: 700; margin-bottom: 4px; }
+  .reason-card h4 { font-family: "Playfair Display", Georgia, serif; font-size: 15px; color: var(--navy); font-weight: 700; line-height: 1.2; margin-bottom: 6px; }
+  .reason-card p { font-size: 11.5px; color: var(--charcoal); line-height: 1.5; }
+  .reason-card p strong { color: var(--bbq-red); }
+  /* Viral card */
+  .viral-card { background: var(--white); border: 1px solid var(--light-rule); border-radius: 3px; padding: 12px 14px; display: flex; gap: 10px; border-left: 3px solid var(--dd-red); }
+  .viral-card .vc-icon { width: 36px; height: 36px; border-radius: 50%; background: #FFEDE9; color: var(--dd-red); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .viral-card .vc-content { flex: 1; }
+  .viral-card h4 { font-size: 13px; color: var(--navy); font-weight: 700; margin-bottom: 4px; line-height: 1.25; }
+  .viral-card p { font-size: 11.5px; color: var(--charcoal); line-height: 1.5; }
+  .viral-card .vc-tag { font-size: 9.5px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 700; color: var(--dd-red); margin-top: 4px; }
+  /* Funding stack */
+  .funding-stack { display: flex; height: 56px; border-radius: 3px; overflow: hidden; }
+  .funding-seg { display: flex; flex-direction: column; justify-content: center; padding: 0 16px; color: var(--white); }
+  .funding-seg .fs-pct { font-family: "Playfair Display", Georgia, serif; font-size: 20px; font-weight: 700; line-height: 1; }
+  .funding-seg .fs-amt { font-size: 11px; font-weight: 600; margin-top: 2px; }
+  /* Bar */
+  .bar-row { display: flex; align-items: center; margin-bottom: 7px; }
+  .bar-label { width: 170px; font-size: 12px; font-weight: 600; color: var(--charcoal); }
+  .bar-track { flex: 1; height: 22px; background: rgba(10,31,68,0.06); border-radius: 2px; position: relative; overflow: hidden; }
+  .bar-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 2px; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: var(--white); font-weight: 700; font-size: 11px; }
+  .bar-val { width: 80px; text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 12px; padding-left: 8px; }
+  /* Big quote */
+  .ceo-quote-bg { background: linear-gradient(135deg, var(--dd-red) 0%, #B81100 100%); color: var(--cream-soft); height: 100%; display: flex; align-items: center; justify-content: center; padding: 50px 80px; position: relative; }
+  .ceo-quote { font-family: "Playfair Display", Georgia, serif; font-size: 30px; font-weight: 600; color: var(--cream-soft); line-height: 1.3; text-align: left; max-width: 96%; letter-spacing: -0.3px; }
+  .ceo-quote .ac { font-style: italic; color: #FFD8DA; }
+  .ceo-quote::before { content: '"'; font-family: "Playfair Display", Georgia, serif; position: absolute; left: 50px; top: 16px; font-size: 130px; line-height: 1; color: rgba(255,255,255,0.18); }
+  .ceo-quote-attr { margin-top: 22px; font-size: 12px; color: rgba(255,216,218,0.85); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; }
+  .compact-metric { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; background: var(--white); border: 1px solid var(--light-rule); border-radius: 2px; }
+  .compact-metric .cm-val { font-family: "Playfair Display", Georgia, serif; font-size: 20px; font-weight: 700; color: var(--navy); line-height: 1; }
+  .compact-metric .cm-label { font-size: 10px; color: var(--muted); letter-spacing: 0.3px; }
+  .gate-row { display: grid; grid-template-columns: 56px 1fr; gap: 14px; padding: 8px 0; border-bottom: 1px solid var(--light-rule); }
+  .gate-row:last-child { border-bottom: none; }
+  .gate-row .num { font-family: "Playfair Display", Georgia, serif; font-size: 32px; color: var(--dd-red); line-height: 1; font-weight: 700; }
+  .gate-row h4 { font-size: 13px; color: var(--navy); font-weight: 700; margin-bottom: 3px; line-height: 1.3; }
+  .gate-row p { font-size: 11.5px; color: var(--muted); line-height: 1.45; }
+  .small { font-size: 11px; color: var(--muted); line-height: 1.45; }
+  /* Big idea */
+  .big-idea-content { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 8px 0; }
+  .big-idea-mark { font-family: "Playfair Display", Georgia, serif; font-size: 88px; font-weight: 900; line-height: 0.95; letter-spacing: -3px; margin-bottom: 10px; color: var(--navy); text-align: center; }
+  .big-idea-mark .lm { color: var(--navy); }
+  .big-idea-mark .drops { color: var(--dd-red); font-style: italic; }
+  .big-idea-tagline { font-family: "Playfair Display", Georgia, serif; font-size: 21px; color: var(--charcoal); font-weight: 600; text-align: center; max-width: 80%; line-height: 1.3; margin-bottom: 16px; }
+  .big-idea-tagline .em { color: var(--dd-red); font-style: italic; }
+  .big-idea-trinity { display: flex; gap: 12px; align-items: center; justify-content: center; font-size: 12px; color: var(--charcoal); flex-wrap: wrap; }
+  .big-idea-trinity .bit { background: var(--white); border: 1px solid var(--light-rule); padding: 7px 12px; border-radius: 30px; }
+  .big-idea-trinity .bit strong { color: var(--dd-red); }
+  .big-idea-trinity .bit.r2 strong { color: var(--bbq-red); }
+  .big-idea-trinity .bit.r3 strong { color: var(--gold); }
+  .big-idea-trinity .bit.r4 strong { color: var(--good); }
+  .big-idea-trinity .arr { color: var(--muted); font-size: 14px; }
+  /* Accommodation map */
+  .accom-map { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: end; height: 220px; margin-top: 8px; }
+  .accom-bar { background: var(--white); border: 1px solid var(--light-rule); border-bottom: 4px solid var(--dd-red); display: flex; flex-direction: column; justify-content: flex-end; padding: 12px 14px; position: relative; }
+  .accom-bar.r2 { border-bottom-color: var(--bbq-red); }
+  .accom-bar.r3 { border-bottom-color: var(--gold); }
+  .accom-bar .ab-val { font-family: "Playfair Display", Georgia, serif; font-size: 28px; font-weight: 700; color: var(--navy); line-height: 1; }
+  .accom-bar .ab-label { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+  .accom-bar .ab-tag { position: absolute; top: 12px; left: 14px; right: 14px; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dd-red); font-weight: 700; }
+  .accom-bar.r2 .ab-tag { color: var(--bbq-red); }
+  .accom-bar.r3 .ab-tag { color: var(--gold); }
+  /* Disclaimer note */
+  .disclaimer { background: #FFF7E6; border-left: 3px solid var(--amber); padding: 8px 12px; border-radius: 2px; font-size: 11px; color: var(--charcoal); margin-top: 8px; line-height: 1.5; }
+  .disclaimer strong { color: var(--amber); }
+  /* Coco diagram */
+  .coco-spec-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 8px; }
+  .coco-spec { background: var(--white); border: 1px solid var(--light-rule); padding: 10px 12px; border-radius: 2px; }
+  .coco-spec .cs-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+  .coco-spec .cs-val { font-family: "Playfair Display", Georgia, serif; font-size: 18px; color: var(--navy); font-weight: 700; margin-top: 2px; }
+  .coco-spec .cs-sub { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+  @media print {
+    body { background: white; }
+    .deck { gap: 0; padding: 0; }
+    .slide { box-shadow: none; border-radius: 0; page-break-after: always; width: 100%; }
+  }
+</style>
 </head>
 <body>
-  <aside class="rail">
-    <div class="brand">
-      <div class="brand-mark">BBQ</div>
-      <div class="brand-copy">Franchise Growth<br>Consulting Deck</div>
-      <nav class="slide-nav" aria-label="Slide navigation">
-        <a href="#s00">00</a>
-        <a href="#s01">01</a>
-        <a href="#s02">02</a>
-        <a href="#s02b">03</a>
-        <a href="#s03">04</a>
-        <a href="#s04">05</a>
-        <a href="#s05">06</a>
-        <a href="#s06">07</a>
-        <a href="#s07">08</a>
-        <a href="#s08">09</a>
-        <a href="#s09">10</a>
-        <a href="#s10">11</a>
-        <a href="#s11">12</a>
-        <a href="#s12">13</a>
-        <a href="#s13">14</a>
-        <a href="#s14">15</a>
-        <a href="#s15">16</a>
-      </nav>
+<div class="deck">
+
+<!-- 1. COVER -->
+<section class="slide cover">
+  <div class="cover-bg"></div>
+  <div class="cover-content">
+    <div class="cover-eyebrow">Strategic Partnership Pitch · April 2026</div>
+    <div class="lmd-mark"><span class="lm">LAST MILE</span> <span class="drops">DROPS.</span></div>
+    <h1>DoorDash's first integrated last-mile delivery platform at a U.S. festival.</h1>
+    <div class="cover-sub">A 3-year strategic partnership pitch from BBQ Chicken U.S. — <strong>extending DoorDash's "Your Door to More" into the largest cultural moment of the year. Drone, robot, app — wherever Coachella attendees sleep, work, or wait in line.</strong></div>
+    <div class="cover-pills">
+      <div class="cover-pill">First QSR drone+robot+app activation at a tier-1 U.S. festival</div>
+      <div class="cover-pill">$1.2M DoorDash · 3-year category exclusivity</div>
     </div>
-    <div class="progress">
-      <div class="label">현재 슬라이드</div>
-      <div class="count" id="progressCount">00 / 16</div>
+  </div>
+  <div class="cover-footer">
+    <div class="cobrand-lockup">
+      <div class="cl-bbq">bb.q <span>CHICKEN</span></div>
+      <div class="cl-x">×</div>
+      <div class="cl-dd">DoorDash</div>
     </div>
-  </aside>
+    <div class="cover-footer-text">PREPARED BY BBQ CHICKEN U.S. · FOR DOORDASH CORPORATE PARTNERSHIPS</div>
+  </div>
+  <div class="slide-num" style="color: rgba(255,255,255,0.5);">01</div>
+</section>
 
-  <main class="deck">
-    <section class="slide" id="s00" data-step="00">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">표지</div>
-          <div class="slide-index">00</div>
-        </div>
-        <div class="cover-grid">
-          <div class="hero-box">
-            <div class="kicker">Genesis BBQ Group | Global Branding Strategy Division</div>
-            <div class="hero-title">BBQ 창업 성과 개선안<br>유입, 문의, 창업<br>전환 구조 재설계</div>
-            <div class="hero-sub">
-              핵심 과제 3개.
-              <br>유입 경로 재정비.
-              <br>랜딩페이지 재설계.
-              <br>상담 CS 표준화.
-            </div>
-            <div class="hero-meta">
-              <span>2026.04.15</span>
-            </div>
-            <div class="metric-row">
-              <div class="metric">
-                <div class="label">퍼널 1</div>
-                <div class="value">유입 확대</div>
-              </div>
-              <div class="metric">
-                <div class="label">퍼널 2</div>
-                <div class="value">문의 전환</div>
-              </div>
-              <div class="metric">
-                <div class="label">퍼널 3</div>
-                <div class="value">창업 전환</div>
-              </div>
-            </div>
-          </div>
-          <div class="cover-side">
-            <div class="quote-box">
-              <div class="eyebrow">한 줄 메시지</div>
-              <div class="quote">좋은 창업 랜딩페이지<br>소개서보다<br>답안지에 가까운 구조</div>
-              <div class="quote-sub">
-                창업 희망자가 묻는 질문에 먼저 답하는 구조.
-                <br>AI가 읽고, 사람이 이해하고, 상담이 이어지는 설계.
-              </div>
-            </div>
-            <div class="card dark">
-              <div class="eyebrow">핵심 흐름</div>
-              <h3>퍼널 정의 → 타겟 질문<br>GPT 결과 → 실행 해법</h3>
-              <ul class="bullet-list">
-                <li>유입, 문의, 창업의 3단 구조 먼저 정의</li>
-                <li>GPT incognito 결과로 BBQ 현재 포지션 확인</li>
-                <li>유입은 AI 검색과 채널 구조 중심 재설계</li>
-                <li>문의와 창업은 랜딩과 CS 트레이닝으로 연결</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="footnote">제너시스BBQ그룹 글로벌브랜딩전략실 제안</div>
+<!-- 2. EXECUTIVE SUMMARY -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">EXECUTIVE</span><span class="ht-section">Summary</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway"><span class="dd">LAST MILE DROPS</span> launches DoorDash's first <span class="dd">integrated drone+robot+app</span> last-mile platform — at the highest-attention cultural moment of 2027.</h1>
+
+  <div class="hero-metrics" style="margin-top: 4px;">
+    <div class="hero-metric gold-acc">
+      <div class="hm-label">DoorDash Investment</div>
+      <div class="hm-val">$1.2M</div>
+      <div class="hm-sub">Tech-flagship moment + Coco fleet utilization + Wing/Flytrex showcase.</div>
+    </div>
+    <div class="hero-metric">
+      <div class="hm-label">Effective CAC vs Paid</div>
+      <div class="hm-val">$10–14</div>
+      <div class="hm-sub">30–50% below DoorDash paid baseline of $15–25.</div>
+    </div>
+    <div class="hero-metric">
+      <div class="hm-label">Earned Media Value</div>
+      <div class="hm-val">$18–28M</div>
+      <div class="hm-sub">3 distinct industry-firsts in one campaign.</div>
+    </div>
+    <div class="hero-metric">
+      <div class="hm-label">DashPass Conversion Lift</div>
+      <div class="hm-val">+18–25K</div>
+      <div class="hm-sub">Net-new DashPass subscribers from SoCal cohort (12-mo).</div>
+    </div>
+  </div>
+
+  <div class="insight-box" style="margin-top: 14px;">
+    <h5>What the next 18 slides argue</h5>
+    <p><strong>Story (slides 3–8):</strong> the Last Mile Drops idea, why DoorDash wins, why BBQ is the right partner. <strong>Strategy (slides 9–13):</strong> the assets DoorDash already owns, the 5 drops, FAA realism, ON-SITE Coco operations. <strong>Numbers (slides 14–17):</strong> CAC, joint platform economics, DashPass conversion model, KPIs, defensibility. <strong>Decision (slides 18–20):</strong> the green-light rationale.</p>
+  </div>
+  <div class="source-line">Source: DoorDash + Coco Robotics live partnership; DoorDash + Wing/Flytrex Part 135 operations; Coachella 2026 sponsor data; industry CAC benchmarks for food-delivery apps Q1 2025.</div>
+  <div class="slide-num">02</div>
+</section>
+
+<!-- 3. THE BIG IDEA -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">THE BIG IDEA</span><span class="ht-section">Last Mile Drops</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+
+  <div class="big-idea-content">
+    <div class="big-idea-mark"><span class="lm">LAST MILE</span> <span class="drops">DROPS</span></div>
+    <div class="big-idea-tagline">DoorDash's first integrated last-mile delivery platform —<br/><span class="em">drone + robot + app, deployed where every Coachella attendee actually is.</span></div>
+
+    <div class="big-idea-trinity">
+      <div class="bit"><strong>ON-SITE DROP</strong> — drone + Coco visible inside Coachella</div>
+      <div class="bit r2"><strong>TENT DROP</strong> — drone to camp</div>
+      <div class="bit r3"><strong>HOUSE DROP</strong> — fresh-on-arrival to Airbnbs</div>
+    </div>
+    <div style="margin-top: 10px; font-size: 11.5px; color: var(--muted); text-align: center;">
+      <em>+ Bonus surface: <strong style="color: var(--good);">VIP DROP</strong> — Coco premium service inside artist compound</em>
+    </div>
+
+    <p style="font-size: 12.5px; color: var(--charcoal); margin-top: 14px; max-width: 84%; text-align: center; line-height: 1.55;">Three core delivery surfaces — covering every Coachella attendee at three points of their day. Two transversal mechanics (app drops + Flavor Heatmap). One unified platform name DoorDash can use beyond Coachella. <strong>"Last Mile" is operational seriousness; "Drops" is consumer virality.</strong></p>
+  </div>
+
+  <div class="source-line">"Last Mile Drops" extends DoorDash's "Your Door to More" voice while adopting industry-canonical "last mile" terminology; the four-surface design covers all attendee touchpoints — on-site visible, camp, Airbnb, VIP compound.</div>
+  <div class="slide-num">03</div>
+</section>
+
+<!-- 4. THE COACHELLA SURFACE MAP -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">04</span><span class="ht-section">The Coachella Attendee Map</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">Coachella attendees occupy <span class="dd">three sleep environments + one shared experience zone</span>. A single-surface activation misses 75% of the audience.</h1>
+
+  <div class="accom-map" style="margin-top: 8px;">
+    <div class="accom-bar" style="height: 50%;">
+      <div class="ab-tag">DRONE — TENT</div>
+      <div class="ab-val">17–25K</div>
+      <div class="ab-label">On-site tents (general camping + safari + glamping)</div>
+    </div>
+    <div class="accom-bar r2" style="height: 100%;">
+      <div class="ab-tag">PRE-ARRIVAL — HOUSE</div>
+      <div class="ab-val">60–80K</div>
+      <div class="ab-label">Off-site Airbnbs · Palm Desert, La Quinta, Indio, Joshua Tree, Palm Springs</div>
+    </div>
+    <div class="accom-bar r3" style="height: 60%;">
+      <div class="ab-tag">COCO — VIP</div>
+      <div class="ab-val">25–35K</div>
+      <div class="ab-label">VIP/artist compound + Palm Springs hotel cluster</div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top: 18px; gap: 28px;">
+    <div class="card" style="border-left: 3px solid var(--bbq-red);">
+      <h4>The On-Site visible moment cuts across all three</h4>
+      <p style="margin-top: 4px; font-size: 12px;"><strong>While drones cycle to tent zones, all 250K attendees see them in flight.</strong> A festival-goer waiting in a 60-min food line who watches BBQ chicken fly past = the most shareable moment of the entire weekend. <strong>The On-Site Drop is not a separate surface — it's the visible byproduct of the Tent Drop, multiplying the EMV.</strong></p>
+    </div>
+    <div class="card dd-card">
+      <h4>Why this map matters to DoorDash</h4>
+      <p style="margin-top: 4px; font-size: 12px;">No food platform has framed a festival activation around <strong>all attendee touchpoints simultaneously</strong>. Uber Eats has no festival anchor. Grubhub has no robotics. <strong>DoorDash uniquely owns the asset stack to claim this — drone partner, robot partner, app, dispatch — and BBQ is the only restaurant partner that can hot-deliver across all four surfaces.</strong></p>
+    </div>
+  </div>
+  <div class="source-line">Source: Coachella attendee accommodation data (Sponsor United 2026); Airbnb Coachella Valley listings (Q1 2026); DoorDash internal Coachella-window order distribution analysis (2024).</div>
+  <div class="slide-num">04</div>
+</section>
+
+<!-- 5. HOW IT GOES VIRAL -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">05</span><span class="ht-section">How Last Mile Drops Explodes</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">"It will go viral" is not an outcome. <span class="dd">Six engineered mechanics</span> are.</h1>
+
+  <div class="three-col" style="margin-top: 4px;">
+    <div class="viral-card">
+      <div class="vc-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 4l10 8"/><path d="M5 12v8h14v-8"/></svg>
       </div>
-    </section>
-
-    <section class="slide" id="s01" data-step="01">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">핵심 요약</div>
-          <div class="slide-index">01</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">핵심 결론<br>유입, 문의, 창업<br>세 단계 동시 최적화</h2>
-          <p class="subtitle">
-            효율 저하는 한 지점의 문제가 아님.
-            <br>유입은 광고 의존과 AI 노출 약세.
-            <br>문의는 랜딩 답변력 부족.
-            <br>창업은 문의 이후 CS 전환 체계 강화 필요.
-          </p>
-        </div>
-        <div class="grid-3">
-          <div class="card">
-            <div class="eyebrow">유입</div>
-            <h3>질문형 유입 입구 선점 부족</h3>
-            <p class="muted">
-              광고 집행은 가능하지만
-              AI 검색, 질문형 자연 검색, 직접 유입 자산은 약한 상태.
-              광고 미니랜딩 자료 부재도 유입 최적화의 사각지대.
-            </p>
-            <div class="chip">유입</div>
-          </div>
-          <div class="card">
-            <div class="eyebrow">문의</div>
-            <h3>랜딩페이지 답변력 부족</h3>
-            <p class="muted">
-              타겟은 망하지 않나, 돈 되나, 내가 할 수 있나부터 확인.
-              현재 랜딩은 본사 설명이 앞서
-              문의 이유 형성이 늦은 구조.
-            </p>
-            <div class="chip">문의</div>
-          </div>
-          <div class="card">
-            <div class="eyebrow">창업</div>
-            <h3>상담 체계와 CS 표준화 부족</h3>
-            <p class="muted">
-              문의만 늘어도 상담 품질과 후속 접촉이 약하면
-              계약으로 이어지지 않는 구조.
-              같은 질문에 일관되게 답하는 역량이 마지막 승부처.
-            </p>
-            <div class="chip">창업</div>
-          </div>
-        </div>
-        <div class="card dark">
-          <div class="eyebrow">권고안</div>
-          <h3>퍼널 3단과 GPT 답변 구조<br>동시 개편</h3>
-          <div class="process">
-            <div class="process-step">
-              <div class="num">01</div>
-              <h4>유입 늘리기</h4>
-              <p>AI 검색, 일반 검색, 광고 구조 동시 재정비</p>
-            </div>
-            <div class="process-step">
-              <div class="num">02</div>
-              <h4>문의 늘리기</h4>
-              <p>랜딩 첫 화면부터 질문에 바로 답하는 구조</p>
-            </div>
-            <div class="process-step">
-              <div class="num">03</div>
-              <h4>창업 늘리기</h4>
-              <p>문의 후 상담 스크립트와 CS 트레이닝 표준화</p>
-            </div>
-            <div class="process-step">
-              <div class="num">04</div>
-              <h4>GPT 답변 개선</h4>
-              <p>공식 디지털 풋프린트로 BBQ 설명 문장 자체 교정</p>
-            </div>
-          </div>
-        </div>
-        <div class="footnote">출처: BBQ 현재 페이지 감사, Adobe ChatGPT Search Survey, OpenAI·Google 공식 검색 자료.</div>
+      <div class="vc-content">
+        <h4>1. The drone-flying-past hero shot</h4>
+        <p>A festival-goer waits 60 min in line at Vendor X. A drone cycles past carrying BBQ chicken. <strong>That's the shareable moment of the weekend.</strong> Captured by every smartphone in the food court.</p>
+        <div class="vc-tag">ON-SITE — VISIBLE BYPRODUCT</div>
       </div>
-    </section>
-
-    <section class="slide" id="s02" data-step="02">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">퍼널 구조</div>
-          <div class="slide-index">02</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">퍼널 구조와 해법<br>유입, 문의, 창업<br>세 단계 한 장 정렬</h2>
-          <p class="subtitle">
-            유입은 가장 넓은 단계.
-            <br>문의는 랜딩 전환 단계.
-            <br>창업은 상담 전환 단계.
-          </p>
-        </div>
-        <div class="grid-2">
-          <div class="card">
-            <div class="eyebrow">퍼널</div>
-            <h3>유입 → 문의 → 창업</h3>
-            <div class="big-funnel">
-              <div class="big-funnel-step" style="--w: 94%;">
-                <div class="k">유입 단계</div>
-                <div class="v">유입</div>
-                <div class="d">광고, 일반 검색, 홈페이지 직접, AI 검색</div>
-              </div>
-              <div class="big-funnel-step mid" style="--w: 76%;">
-                <div class="k">문의 단계</div>
-                <div class="v">문의</div>
-                <div class="d">랜딩페이지에서 문의 클릭과 폼 제출로 연결</div>
-              </div>
-              <div class="big-funnel-step low" style="--w: 56%;">
-                <div class="k">창업 단계</div>
-                <div class="v">창업</div>
-                <div class="d">문의 이후 상담, CS, 후속 접촉을 거쳐 계약 전환</div>
-              </div>
-            </div>
-            <div class="callout">
-              유입이 가장 넓은 단계.
-              <br>문의는 중간 전환 단계.
-              <br>창업은 최종 전환 단계.
-            </div>
-          </div>
-          <div class="card">
-            <div class="eyebrow">해법</div>
-            <h3>퍼널 단계별 해법</h3>
-            <div class="solution-stack">
-              <div class="solution-item">
-                <strong>유입을 늘린다</strong>
-                <span>유입 경로 최적화, 새로운 유입 경로 발굴, 광고 전략 재수립</span>
-              </div>
-              <div class="solution-item">
-                <strong>문의를 늘린다</strong>
-                <span>랜딩페이지 재수립, 질문형 답변 구조, CTA 개선</span>
-              </div>
-              <div class="solution-item">
-                <strong>창업을 늘린다</strong>
-                <span>상담 CS 트레이닝, 질문별 응대 스크립트, 후속 접촉 체계</span>
-              </div>
-            </div>
-            <div class="callout">
-              AI 활용 지점 3개.
-              <br>질문 정리.
-              <br>문안 초안.
-              <br>전환 분석.
-            </div>
-          </div>
-        </div>
-        <div class="footnote">
-          광고 미니랜딩은 유입 구간의 하위 진단 항목.
-          현재 자료 부재로 상세 진단은 후행 과제.
-        </div>
+    </div>
+    <div class="viral-card">
+      <div class="vc-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l9-18 9 18z"/></svg>
       </div>
-    </section>
-
-    <section class="slide" id="s02b" data-step="03">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">필요한 정보</div>
-          <div class="slide-index">03</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">정확한 진단과 실행을 위해<br>먼저 필요한 정보</h2>
-          <p class="subtitle">
-            현재 받은 자료만으로는 방향 정리는 가능.
-            <br>정밀 실행과 수치 목표 설정에는 추가 데이터 필요.
-          </p>
-        </div>
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th>필요 정보</th>
-              <th>왜 필요한가</th>
-              <th>없을 때 한계</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="reco">
-              <td><strong>월별 유입량</strong></td>
-              <td>현재 퍼널의 크기와 시즌성 확인</td>
-              <td>증감 원인과 현실 목표 설정 불가</td>
-            </tr>
-            <tr>
-              <td><strong>유입 경로별 비중</strong></td>
-              <td>광고, 일반 검색, 직접, 외부 유입 구조 파악</td>
-              <td>어디를 먼저 키울지 우선순위 설정 불가</td>
-            </tr>
-            <tr>
-              <td><strong>광고 집행 현황</strong></td>
-              <td>어떤 광고를, 어디서 운영 중인지 확인</td>
-              <td>광고 전략 재수립이 의견 수준에 머묾</td>
-            </tr>
-            <tr>
-              <td><strong>광고 소재·문안·랜딩 URL</strong></td>
-              <td>광고 약속과 도착 화면의 일치 여부 판단</td>
-              <td>미니랜딩 최적화 진단 불가</td>
-            </tr>
-            <tr>
-              <td><strong>랜딩 단계별 전환율</strong></td>
-              <td>방문, 버튼 클릭, 폼 시작, 폼 제출 구간 누수 확인</td>
-              <td>랜딩 개선 우선순위 불명확</td>
-            </tr>
-            <tr>
-              <td><strong>문의 후 상담 데이터</strong></td>
-              <td>응답 속도, 상담 예약률, 상담 완료율 파악</td>
-              <td>문의가 왜 창업으로 안 이어지는지 판단 어려움</td>
-            </tr>
-            <tr>
-              <td><strong>문의→창업 전환 데이터</strong></td>
-              <td>최종 계약 전환율과 병목 구간 확인</td>
-              <td>CS 트레이닝 효과 측정 불가</td>
-            </tr>
-            <tr>
-              <td><strong>상담 녹취·FAQ·이탈 사유</strong></td>
-              <td>실제 반대 질문과 불안 요소 파악</td>
-              <td>랜딩과 상담 스크립트 연결이 약해짐</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="grid-3">
-          <div class="card flat">
-            <div class="eyebrow">즉시 요청</div>
-            <h3>유입 데이터</h3>
-            <p class="muted">월별 세션, 유입 경로, 캠페인별 집행 현황과 성과</p>
-          </div>
-          <div class="card flat">
-            <div class="eyebrow">즉시 요청</div>
-            <h3>광고 자료</h3>
-            <p class="muted">소재, 문안, 타게팅, 미니랜딩 URL, 페이지별 전환 로그</p>
-          </div>
-          <div class="card flat">
-            <div class="eyebrow">있으면 큰 도움</div>
-            <h3>상담 현장 자료</h3>
-            <p class="muted">상담 스크립트, 녹취, 자주 나오는 반대 질문, 이탈 사유</p>
-          </div>
-        </div>
-        <div class="footnote">
-          현재 상태는 방향 제안 단계.
-          위 자료가 들어오면 실행 우선순위와 KPI를 더 정밀하게 재산정 가능.
-        </div>
+      <div class="vc-content">
+        <h4>2. The "Holy Cow" tent reaction</h4>
+        <p>Drone tether-lowering food into a campsite is viscerally extraordinary. <strong>The reaction shot is the content.</strong> Every successful tent delivery = one organic TikTok.</p>
+        <div class="vc-tag">TENT — REACTION CONTENT</div>
       </div>
-    </section>
-
-    <section class="slide" id="s03" data-step="04">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">문제 정의</div>
-          <div class="slide-index">04</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">문제 정의<br>각 퍼널 단계마다<br>막히는 이유 상이</h2>
-          <p class="subtitle">
-            유입은 발견성, 문의는 답변력, 창업은 상담 전환력이 핵심.
-            같은 처방으로는 세 단계를 동시에 개선하기 어려움.
-          </p>
-        </div>
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th>퍼널 단계</th>
-              <th>현재 문제</th>
-              <th>핵심 레버</th>
-              <th>비고</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="reco">
-              <td><strong>유입</strong></td>
-              <td>광고 의존, AI·자연 검색 점유 약함, 광고 미니랜딩 자료 부재</td>
-              <td>유입 경로 재정비, GPT 답변 개선, 질문형 콘텐츠 확대</td>
-              <td>미니랜딩은 자료 확보 후 세부 진단</td>
-            </tr>
-            <tr>
-              <td><strong>문의</strong></td>
-              <td>랜딩페이지 첫 화면에서 질문에 늦게 답함</td>
-              <td>랜딩 재수립, 질문형 구조, CTA 재설계</td>
-              <td>즉시 실행 가능 영역</td>
-            </tr>
-            <tr>
-              <td><strong>창업</strong></td>
-              <td>문의 후 어떤 질문에 어떻게 답할지 표준화 약함</td>
-              <td>CS 트레이닝, 후속 접촉, 상담 준비 자동화</td>
-              <td>전환율 개선 핵심</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="grid-3">
-          <div class="card flat">
-            <div class="eyebrow">핵심 포인트</div>
-            <h3>유입은 양의 문제</h3>
-            <p class="muted">광고만이 아니라 AI와 자연 검색의 입구 확보 필요</p>
-          </div>
-          <div class="card flat">
-            <div class="eyebrow">핵심 포인트</div>
-            <h3>문의는 구조의 문제</h3>
-            <p class="muted">랜딩이 질문 순서로 답하지 않으면 전환 손실</p>
-          </div>
-          <div class="card flat">
-            <div class="eyebrow">핵심 포인트</div>
-            <h3>창업은 사람의 문제</h3>
-            <p class="muted">상담 품질과 응대 표준화가 마지막 전환 레버</p>
-          </div>
-        </div>
-        <div class="footnote">광고 미니랜딩은 유입 단계 안의 세부 이슈. 본문 후반에 별도 관리 포인트 제시.</div>
+    </div>
+    <div class="viral-card">
+      <div class="vc-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
       </div>
-    </section>
-
-    <section class="slide" id="s04" data-step="05">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">질문 유형</div>
-          <div class="slide-index">05</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">타겟 질문 맵<br>랜딩과 AI가 먼저 답해야 할 질문</h2>
-          <p class="subtitle">
-            질문은 많아 보여도 본질은 단순.
-            <br>실패 위험.
-            <br>수익 구조.
-            <br>운영 가능성의 세 축.
-          </p>
-        </div>
-        <div class="grid-3">
-          <div class="card">
-            <div class="eyebrow">질문 묶음 1</div>
-            <h3>망하지 않나</h3>
-            <ul class="bullet-list">
-              <li>치킨집 창업 아직 괜찮나</li>
-              <li>프랜차이즈 하면 망할 수도 있나</li>
-              <li>망하지 않는 브랜드 기준이 뭔가</li>
-              <li>입지 리스크는 얼마나 큰가</li>
-            </ul>
-          </div>
-          <div class="card">
-            <div class="eyebrow">질문 묶음 2</div>
-            <h3>돈 되나</h3>
-            <ul class="bullet-list">
-              <li>BBQ 창업 비용 얼마인가</li>
-              <li>월 얼마 벌 수 있나</li>
-              <li>배달 수수료 빼면 남는가</li>
-              <li>손익분기점 언제인가</li>
-            </ul>
-          </div>
-          <div class="card">
-            <div class="eyebrow">질문 묶음 3</div>
-            <h3>내가 할 수 있나</h3>
-            <ul class="bullet-list">
-              <li>초보자도 가능한가</li>
-              <li>조리 난이도는 어떤가</li>
-              <li>알바 몇 명 필요한가</li>
-              <li>부부가 같이 운영 가능한가</li>
-            </ul>
-          </div>
-        </div>
-        <div class="grid-2">
-          <div class="card flat">
-            <div class="eyebrow">비교 단계 질문</div>
-            <h3>브랜드 비교</h3>
-            <p class="muted">BBQ vs 교촌 vs 굽네, 어디가 더 안정적인가</p>
-          </div>
-          <div class="card flat">
-            <div class="eyebrow">결정 직전 질문</div>
-            <h3>지금 들어가도 되나</h3>
-            <p class="muted">본사 지원, 추천 입지, 나에게 맞는 포맷 확인</p>
-          </div>
-        </div>
-        <div class="callout">
-          이 질문 순서가 곧 랜딩 구성 순서이자 AI용 공식 답변 제작 순서.
-        </div>
-        <div class="footnote">질문 예시는 BBQ 창업 관련 대표 검색·AI 질의 패턴 정리.</div>
+      <div class="vc-content">
+        <h4>3. The "Welcome Drop" arrival ritual</h4>
+        <p>Group of 8 arrives at their Airbnb. A <strong>BBQ × DoorDash Festival Care Kit</strong> is waiting (cooler, koozies, branded hat, sunscreen). Inside: a card — <em>"Your first dinner is on us, order via DashApp now."</em> Hot BBQ arrives 30 minutes later. <strong>Two content moments: the unboxing AND the fresh-arrival meal.</strong></p>
+        <div class="vc-tag">HOUSE — ARRIVAL CONTENT</div>
       </div>
-    </section>
-
-    <section class="slide" id="s05" data-step="06">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">문제 1</div>
-          <div class="slide-index">06</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">문제 1. 랜딩페이지<br>질문보다 본사 설명이 앞서는 구조</h2>
-          <p class="subtitle">
-            들어온 사람은 브랜드 소개보다
-            망하지 않나, 돈 되나, 내가 할 수 있나부터 확인.
-            <br>현재 구조는 이 답이 늦고
-            질문형 문장도 충분하지 않은 상태.
-          </p>
-        </div>
-        <table class="matrix-table">
-          <thead>
-            <tr>
-              <th>구간</th>
-              <th>현재 상태</th>
-              <th>바꿀 방향</th>
-              <th>AI 활용</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="brand-row">
-              <td><strong>첫 화면</strong></td>
-              <td>브랜드 인상 중심</td>
-              <td>세 질문 즉답 + 근거 3개</td>
-              <td>AI로 상위 질문 묶어 hero 문안 5종 생성</td>
-            </tr>
-            <tr>
-              <td><strong>중간 구간</strong></td>
-              <td>브랜드 설명 연장</td>
-              <td>업종 비교, 경쟁 비교, 수익 구조, 운영 현실</td>
-              <td>AI로 FAQ 초안과 비교표 문구 정리</td>
-            </tr>
-            <tr>
-              <td><strong>폼·CTA</strong></td>
-              <td>정보 수집 중심</td>
-              <td>맞춤 답변 제공형 CTA</td>
-              <td>AI로 입력값 기반 CTA 문안 분기</td>
-            </tr>
-            <tr>
-              <td><strong>페이지 구조</strong></td>
-              <td>스크립트와 이미지 의존 높음</td>
-              <td>짧은 본문, 표, FAQ, 내부링크 강화</td>
-              <td>AI와 검색엔진이 읽기 쉬운 구조 강화</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="grid-3">
-          <div class="card flat">
-            <div class="eyebrow">AI 활용 1</div>
-            <h3>질문 로그 묶기</h3>
-            <p class="muted">상담 기록과 검색어를 묶어 상단 질문 우선순위 정리</p>
-          </div>
-          <div class="card flat">
-            <div class="eyebrow">AI 활용 2</div>
-            <h3>쉬운 말 카피</h3>
-            <p class="muted">본사 표현을 초보자 언어로 다시 쓰는 초안 생산</p>
-          </div>
-          <div class="card flat">
-            <div class="eyebrow">AI 활용 3</div>
-            <h3>이탈 이유 요약</h3>
-            <p class="muted">Clarity·GA4 로그를 묶어 어디서 꺾였는지 빠르게 요약</p>
-          </div>
-        </div>
-        <div class="footnote">한 줄 정리: 랜딩페이지의 일은 설득보다 질문 해소.</div>
+    </div>
+    <div class="viral-card">
+      <div class="vc-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 8 22 9 17 14 18 21 12 18 6 21 7 14 2 9 9 8 12 2"/></svg>
       </div>
-    </section>
-
-    <section class="slide" id="s06" data-step="07">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">GPT 결과</div>
-          <div class="slide-index">07</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">GPT incognito 테스트 결과<br>BBQ는 후보군에 포함되나<br>최우선 추천 브랜드로 고정되지는 않음</h2>
-          <p class="subtitle">
-            동일 질문 조건으로 확인한 결과,
-            GPT는 BBQ를 추천 후보군에 포함.
-            <br>다만 안정성, 수익 구조, 운영 용이성 관점에서
-            최우선 선택지로 일관되게 제시하지는 않는 상태.
-          </p>
-        </div>
-        <div class="grid-2">
-          <div class="card">
-            <div class="eyebrow">GPT 요약 구조</div>
-            <h3>브랜드별 포지션</h3>
-            <div class="content-engine">
-              <div class="engine-row"><strong>교촌</strong><span class="muted">안정성과 신뢰도 강점, 다만 비용 부담 동반</span></div>
-              <div class="engine-row"><strong>BBQ</strong><span class="muted">인지도와 마케팅 강점, 다만 로열티·원가 부담 함께 언급</span></div>
-              <div class="engine-row"><strong>BHC</strong><span class="muted">매출형 브랜드로 인식, 다만 상권 의존도 높게 해석</span></div>
-              <div class="engine-row"><strong>굽네</strong><span class="muted">차별화 브랜드로 인식, 다만 점포별 편차 가능성 언급</span></div>
-              <div class="engine-row"><strong>중저가 브랜드</strong><span class="muted">가성비 대안으로 분류, 다만 브랜드 파워는 제한적</span></div>
-            </div>
-            <div class="callout">
-              후보군 진입에는 성공.
-              <br>그러나 최우선 추천 프레임 선점은 미흡.
-            </div>
-          </div>
-          <div class="card">
-            <div class="eyebrow">GPT가 본 선택 기준</div>
-            <h3>브랜드보다 의사결정 기준이 먼저 제시</h3>
-            <div class="content-engine">
-              <div class="engine-row"><strong>비용과 수익성</strong><span class="muted">초기 부담보다 남는 구조가 더 중요하다는 관점</span></div>
-              <div class="engine-row"><strong>상권 적합성</strong><span class="muted">같은 브랜드라도 입지 조건이 성과를 크게 좌우한다는 설명</span></div>
-              <div class="engine-row"><strong>경쟁 밀도</strong><span class="muted">주요 치킨 브랜드는 포화 상권 리스크를 함께 검토하는 흐름</span></div>
-              <div class="engine-row"><strong>운영 난이도</strong><span class="muted">초보 창업자 기준 운영 부담과 인력 구조를 중요하게 평가</span></div>
-              <div class="engine-row"><strong>배달 운영력</strong><span class="muted">리뷰, 속도, 재구매 관리가 성패를 좌우한다는 관점</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="footnote">출처: 내부 테스트용 GPT incognito 질문 결과 캡처 5종, 2026.04.15 기준.</div>
+      <div class="vc-content">
+        <h4>4. Celebrity Coco moment</h4>
+        <p>Coco robots delivering to artist compounds = guaranteed celebrity Instagram. <strong>One verified-account post = 30–50M free impressions.</strong></p>
+        <div class="vc-tag">VIP — CELEBRITY CONTENT</div>
       </div>
-    </section>
-
-    <section class="slide" id="s07" data-step="08">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">시사점</div>
-          <div class="slide-index">08</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">시사점<br>인지도는 높지만<br>우선 추천 논리 선점은 미흡</h2>
-          <p class="subtitle">
-            현재 GPT 답변에서 BBQ는 존재감이 있음.
-            <br>그러나 안정성, 수익 구조, 상권 지원, 운영 용이성의 4개 축에서
-            우선 추천 논리를 충분히 점유하지 못한 상태.
-          </p>
-        </div>
-        <div class="grid-3">
-          <div class="card">
-            <div class="eyebrow">현재 인식</div>
-            <h3>브랜드 인지도와 마케팅 강점</h3>
-            <p class="muted">대표 메뉴와 인지도는 강하게 인식되지만, 그것만으로 안전한 창업 브랜드라는 판단까지 이어지지는 않는 상태</p>
-          </div>
-          <div class="card">
-            <div class="eyebrow">현재 약점</div>
-            <h3>로열티·원가·포화 이미지 동반</h3>
-            <p class="muted">비용 부담과 경쟁 밀도 인식이 함께 따라붙어, 보수적 창업자에게는 진입 장벽으로 작동</p>
-          </div>
-          <div class="card">
-            <div class="eyebrow">핵심 과제</div>
-            <h3>브랜드 인상에서 합리적 선택으로 이동</h3>
-            <p class="muted">질문형 공식 답변을 통해 BBQ를 안정성과 운영체계가 강한 선택지로 다시 정의할 필요</p>
-          </div>
-        </div>
-        <div class="card dark">
-          <div class="eyebrow">그래서 바꿔야 할 문장</div>
-          <h3>BBQ가 AI 안에서 가져가야 할 설명 4개</h3>
-          <ul class="bullet-list">
-            <li>안정성: 브랜드 인지도보다 검증된 운영 체계와 본사 지원</li>
-            <li>수익성: 매출 자랑보다 남는 구조와 손익 설명</li>
-            <li>상권: 포화 인식보다 입지 선별과 점포 진단 역량</li>
-            <li>운영성: 어렵지 않다는 말보다 표준화와 교육 체계</li>
-          </ul>
-        </div>
-        <div class="footnote">핵심은 AI 검색 노출 그 자체보다, AI가 BBQ를 어떤 문장으로 설명하느냐.</div>
+    </div>
+    <div class="viral-card">
+      <div class="vc-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
       </div>
-    </section>
-
-    <section class="slide" id="s08" data-step="09">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">유입 전략</div>
-          <div class="slide-index">09</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">유입 늘리기<br>광고, 일반 검색, AI 검색,<br>직접 유입 동시 재설계</h2>
-          <p class="subtitle">
-            유입은 한 채널 문제가 아님.
-            <br>광고를 유지하되
-            질문형 검색과 AI 답변 안에서
-            BBQ가 더 먼저 발견되는 구조 필요.
-          </p>
-        </div>
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th>유입 소스</th>
-              <th>현재 문제</th>
-              <th>해야 할 일</th>
-              <th>AI 활용</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="reco">
-              <td><strong>광고</strong></td>
-              <td>단기 유입은 가능하나 광고 의존 높음</td>
-              <td>질문형 문안 재편, 광고 약속과 공식 답변 페이지 연결</td>
-              <td>문안 후보 생성, 성과 좋은 질문군 분류</td>
-            </tr>
-            <tr>
-              <td><strong>일반 검색</strong></td>
-              <td>질문형 자산 부족</td>
-              <td>질문 제목 페이지, FAQ, 지역·업종변경 페이지 확대</td>
-              <td>질문 클러스터링, 쉬운 설명 초안</td>
-            </tr>
-            <tr>
-              <td><strong>AI 검색</strong></td>
-              <td>GPT 안에서 BBQ 설명력이 약함</td>
-              <td>공식 답변 자산과 외부 인용 확장으로 답변 문장 교정</td>
-              <td>월간 프롬프트 모니터링, 인용 근거 추적</td>
-            </tr>
-            <tr>
-              <td><strong>홈페이지 직접·재유입</strong></td>
-              <td>직접 유입을 문의로 밀어주는 장치 부족</td>
-              <td>질문별 CTA, 후속 자료 재발송, 상담 후 리마인드 강화</td>
-              <td>유입 소스 태깅, 질문별 후속 메시지 자동화</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="grid-3">
-          <div class="card flat">
-            <div class="eyebrow">핵심 채널 1</div>
-            <h3>AI 질문 모니터링</h3>
-            <p class="muted">같은 20개 질문을 ChatGPT, Gemini, Google AI에 매달 점검</p>
-          </div>
-          <div class="card flat">
-            <div class="eyebrow">핵심 채널 2</div>
-            <h3>질문형 자연 검색</h3>
-            <p class="muted">사람이 묻는 문장 그대로 제목을 잡는 공식 페이지 확대</p>
-          </div>
-          <div class="card flat">
-            <div class="eyebrow">핵심 채널 3</div>
-            <h3>광고 리셋</h3>
-            <p class="muted">브랜드 자랑형 광고보다 질문 해결형 광고로 재편</p>
-          </div>
-        </div>
-        <div class="footnote">광고 미니랜딩은 유입 구간 하위 과제. 자료 확보 후 별도 정밀 진단 필요.</div>
+      <div class="vc-content">
+        <h4>5. App-drop FOMO scarcity</h4>
+        <p>Stage-synced menu drops unlock for 30-min windows, <strong>200 orders only per drop</strong>. Creates "I got one" social-proof posts.</p>
+        <div class="vc-tag">APP — SCARCITY ENGAGEMENT</div>
       </div>
-    </section>
-
-    <section class="slide" id="s09" data-step="10">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">문의 전략</div>
-          <div class="slide-index">10</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">문의 늘리기<br>랜딩페이지의 역할은<br>브랜드 소개보다 질문 답변</h2>
-          <p class="subtitle">
-            문의 단계의 핵심은 랜딩페이지.
-            <br>들어온 사람이 세 질문에 바로 답을 얻을 때
-            문의 클릭이 생기는 구조.
-          </p>
-        </div>
-        <table class="matrix-table">
-          <thead>
-            <tr>
-              <th>구간</th>
-              <th>현재 상태</th>
-              <th>바꿀 방향</th>
-              <th>기대 효과</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="brand-row">
-              <td><strong>첫 화면</strong></td>
-              <td>브랜드 인상 중심</td>
-              <td>망하지 않나, 돈 되나, 내가 할 수 있나 즉답</td>
-              <td>이탈 감소, 문의 이유 형성</td>
-            </tr>
-            <tr>
-              <td><strong>중간</strong></td>
-              <td>브랜드 설명 연장</td>
-              <td>업종 비교, 경쟁 비교, 수익 구조, 운영 현실</td>
-              <td>비교·검증 질문 해소</td>
-            </tr>
-            <tr>
-              <td><strong>하단 CTA</strong></td>
-              <td>일반 상담 신청</td>
-              <td>내 지역·현재 조건 기준 가능성 확인 CTA</td>
-              <td>클릭 의도 강화</td>
-            </tr>
-            <tr>
-              <td><strong>폼</strong></td>
-              <td>정보 수집 중심</td>
-              <td>맞춤 답변 제공형 폼</td>
-              <td>입력 장벽 완화</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="grid-3">
-          <div class="card flat">
-            <div class="eyebrow">핵심 질문 1</div>
-            <h3>망하지 않나</h3>
-            <p class="muted">안정성 근거, 본사 지원, 상권 진단 방식 먼저 제시</p>
-          </div>
-          <div class="card flat">
-            <div class="eyebrow">핵심 질문 2</div>
-            <h3>돈 되나</h3>
-            <p class="muted">매출 자랑보다 남는 구조와 비용 항목 설명</p>
-          </div>
-          <div class="card flat">
-            <div class="eyebrow">핵심 질문 3</div>
-            <h3>내가 할 수 있나</h3>
-            <p class="muted">조리 난이도, 인력, 배달 운영, 교육 체계 설명</p>
-          </div>
-        </div>
-        <div class="footnote">문의 단계의 핵심 레버는 카피가 아니라 정보 순서와 답변 방식.</div>
+    </div>
+    <div class="viral-card">
+      <div class="vc-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h4v4H7zM13 7h4v4h-4zM7 13h4v4H7zM13 13h4v4h-4z"/></svg>
       </div>
-    </section>
-
-    <section class="slide" id="s10" data-step="11">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">창업 전략</div>
-          <div class="slide-index">11</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">창업 늘리기<br>문의 이후 상담 체계와<br>CS 트레이닝 강화</h2>
-          <p class="subtitle">
-            문의를 계약으로 넘기는 단계는 상담 품질의 영역.
-            <br>랜딩이 던진 질문을 상담팀이 같은 언어로 이어받을 때
-            전환 가능성 확대.
-          </p>
-        </div>
-        <div class="architecture">
-          <div class="node">
-            <div class="tool">1</div>
-            <h3>질문 태깅</h3>
-            <p class="muted">리드가 어떤 질문에서 들어왔는지 먼저 파악</p>
-          </div>
-          <div class="node">
-            <div class="tool">2</div>
-            <h3>응대 스크립트</h3>
-            <p class="muted">망하지 않나, 돈 되나, 내가 할 수 있나별 답변 표준화</p>
-          </div>
-          <div class="node">
-            <div class="tool">3</div>
-            <h3>상담 준비</h3>
-            <p class="muted">지역, 점포 여부, 운영 조건 기준 맞춤 상담 준비</p>
-          </div>
-          <div class="node">
-            <div class="tool">4</div>
-            <h3>후속 접촉</h3>
-            <p class="muted">상담 후 3회 이상 질문형 자료 재발송과 재접촉</p>
-          </div>
-        </div>
-        <div class="scenario-layout">
-          <table class="usecase-table">
-            <thead>
-              <tr>
-                <th>상담 구간</th>
-                <th>해야 할 일</th>
-                <th>AI 활용</th>
-                <th>KPI</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>최초 연락</td>
-                <td>24시간 내 응답, 질문 유형 분류</td>
-                <td>리드 요약, 질문 태깅</td>
-                <td>응답 속도</td>
-              </tr>
-              <tr>
-                <td>상담 준비</td>
-                <td>지역·점포 상태·운영 조건별 상담 자료 준비</td>
-                <td>상담 브리프 자동 생성</td>
-                <td>상담 예약 전환</td>
-              </tr>
-              <tr>
-                <td>상담 진행</td>
-                <td>반대 질문 스크립트 표준화</td>
-                <td>반대 질문 대응안 추천</td>
-                <td>상담 완료율</td>
-              </tr>
-              <tr>
-                <td>후속 접촉</td>
-                <td>질문별 자료와 추천점포 재발송</td>
-                <td>카카오·메일 자동화</td>
-                <td>문의→창업 전환율</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="card">
-            <div class="eyebrow">CS 트레이닝 원칙</div>
-            <h3>상담도 랜딩과 같은 질문 순서로 답하기</h3>
-            <div class="guardrail">
-              <div class="item">막연한 자신감보다 근거 중심 답변</div>
-              <div class="item">질문 유형별 표준 스크립트 운영</div>
-              <div class="item">상담 후 후속 접촉 루틴 고정</div>
-            </div>
-          </div>
-        </div>
-        <div class="footnote">창업 전환은 영업 감이 아니라 훈련 가능한 응대 체계의 문제.</div>
+      <div class="vc-content">
+        <h4>6. Three industry-first press cycles</h4>
+        <p>"First U.S. QSR festival drone × first sidewalk-robot festival × first pre-arrival hospitality drop" = <strong>3 distinct earned-media cycles for AdAge, Adweek, NRN, Marketing Brew.</strong></p>
+        <div class="vc-tag">EARNED-MEDIA × 3</div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <section class="slide" id="s11" data-step="12">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">AI 운영</div>
-          <div class="slide-index">12</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">AI 운영체계<br>유입, 문의, 창업 데이터를<br>하나의 루프로 연결</h2>
-          <p class="subtitle">
-            AI는 별도 프로젝트가 아니라
-            어떤 질문이 들어왔고 어떤 답이 문의와 창업으로 이어졌는지
-            반복 학습하는 운영 도구.
-          </p>
-        </div>
-        <div class="grid-3">
-          <div class="card">
-            <div class="eyebrow">유입</div>
-            <h3>질문 수집과 채널 확장</h3>
-            <p class="muted">ChatGPT, Gemini, 검색어, 네이버 유입 문장을 묶어 콘텐츠 우선순위 설정</p>
-          </div>
-          <div class="card">
-            <div class="eyebrow">문의</div>
-            <h3>카피 초안과 전환 분석</h3>
-            <p class="muted">hero, FAQ, CTA 후보를 빠르게 만들고 이탈 구간을 요약</p>
-          </div>
-          <div class="card">
-            <div class="eyebrow">창업</div>
-            <h3>상담 준비와 후속 자동화</h3>
-            <p class="muted">리드 요약, 상담 브리프, 질문별 재접촉 메시지를 자동화</p>
-          </div>
-        </div>
-        <div class="card dark">
-          <div class="eyebrow">운영 루프</div>
-          <h3>질문 수집 → 답변 초안 → 현장 검수 → 성과 반영</h3>
-          <div class="process">
-            <div class="process-step">
-              <div class="num">01</div>
-              <h4>질문 수집</h4>
-              <p>검색어, AI 질문, 상담 로그 정리</p>
-            </div>
-            <div class="process-step">
-              <div class="num">02</div>
-              <h4>답변 초안</h4>
-              <p>랜딩 카피, FAQ, 상담 스크립트 생성</p>
-            </div>
-            <div class="process-step">
-              <div class="num">03</div>
-              <h4>현장 검수</h4>
-              <p>브랜드팀, 영업팀, 상담팀 검토</p>
-            </div>
-            <div class="process-step">
-              <div class="num">04</div>
-              <h4>성과 반영</h4>
-              <p>문의율과 창업 전환율 기준 수정 반복</p>
-            </div>
-          </div>
-        </div>
-        <div class="footnote">AI는 초안과 분석 속도 담당. 최종 문장과 수치는 내부 검수 전제.</div>
+  <div class="insight-box" style="margin-top: 14px;">
+    <h5>Why each mechanic produces a different content type</h5>
+    <p>On-site = bystander capture · tent = recipient reaction · house = group celebration · VIP = celebrity reach · app = scarcity proof · press = earned cycle. <strong>Six different content shapes feeding TikTok / IG / X / press in parallel.</strong></p>
+  </div>
+  <div class="source-line">Source: Festival earned-media analyses (Aperol Coachella, Buldak 2025); QSR drone delivery PR cycles; Airbnb arrival content benchmarks.</div>
+  <div class="slide-num">05</div>
+</section>
+
+<!-- 6. WHY DOORDASH WINS -->
+<section class="slide dark">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">06</span><span class="ht-section">Why DoorDash Wins Big</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">For DoorDash, Last Mile Drops monetizes <span class="dd">three assets you already own</span> — Coco, Wing/Flytrex, the app — at a single high-attention moment.</h1>
+
+  <div class="three-col" style="margin-top: 6px;">
+    <div class="card dark-card" style="border-left: 3px solid #FF8B97;">
+      <h4 style="color: #FF8B97;">A. Tech-flagship moment</h4>
+      <p style="margin-top: 4px; font-size: 12px;">DoorDash has been called a "dumb pipe" — anyone's food. Last Mile Drops visibly proves DoorDash is <strong>innovating</strong> — drone, robot, app-native, pre-arrival hospitality — at the highest-attention cultural moment of 2027. Brand-equity dimension shifts from "logistics" to "tech-forward platform."</p>
+    </div>
+    <div class="card dark-card" style="border-left: 3px solid #FF8B97;">
+      <h4 style="color: #FF8B97;">B. Below-paid CAC arbitrage</h4>
+      <p style="margin-top: 4px; font-size: 12px;">DoorDash paid CAC: $15–25/user. <strong>Last Mile Drops produces 80–120K SoCal app downloads at $10–14 effective CAC</strong> — earning $0.6–1.5M of pure CAC arbitrage on the activation cost alone. The campaign pays for itself in cheaper acquisition before EMV.</p>
+    </div>
+    <div class="card dark-card" style="border-left: 3px solid #FF8B97;">
+      <h4 style="color: #FF8B97;">C. Restaurant-partner B2B story</h4>
+      <p style="margin-top: 4px; font-size: 12px;">Every restaurant partner DoorDash recruits in 2027–2029 needs a "what-DoorDash-does-for-you" story. <strong>Last Mile Drops becomes the canonical case study</strong> — drone, Coco, app integration, pre-arrival — that fuels 12+ months of partner recruitment.</p>
+    </div>
+  </div>
+
+  <div class="three-col" style="margin-top: 14px;">
+    <div class="card dark-card" style="border-left: 3px solid #FF8B97;">
+      <h4 style="color: #FF8B97;">D. Coco extreme-heat stress test</h4>
+      <p style="margin-top: 4px; font-size: 12px;">By April 2027, Coco × DoorDash plans 10K+ robots. <strong>Indio's 95°F+ environment is the extreme-heat data point Coco's product roadmap needs</strong> (~$2-3M of equivalent R&D value, captured under marketing budget).</p>
+    </div>
+    <div class="card dark-card" style="border-left: 3px solid #FF8B97;">
+      <h4 style="color: #FF8B97;">E. Music/cultural festival anchor</h4>
+      <p style="margin-top: 4px; font-size: 12px;">DoorDash's existing portfolio is sports-heavy (NBA, WNBA, CFB, WWE, UFC, Pickleball). <strong>Coachella fills a clean white-space gap</strong> — female-skewing 18–34 cohort that current sports anchors under-deliver on.</p>
+    </div>
+    <div class="card dark-card" style="border-left: 3px solid #FF8B97;">
+      <h4 style="color: #FF8B97;">F. Uber Eats lockout (3 years)</h4>
+      <p style="margin-top: 4px; font-size: 12px;"><strong>3-year exclusivity</strong> means Uber Eats cannot replicate at Coachella through 2029. Last Mile Drops creates a Uber-Eats-resistant cultural anchor backed by infrastructure (drone+robot+app) competitors cannot replicate inside the lock window.</p>
+    </div>
+  </div>
+
+  <div class="insight-box dark-bg" style="margin-top: 14px;">
+    <h5>The compounding effect — why this is bigger than $1.2M</h5>
+    <p>Items A, B, C build <strong>strategic positioning</strong>. Items D, E, F deliver <strong>operational economics</strong>. The Last Mile Drops structure stacks all six: tech-flagship moment + CAC arbitrage + B2B asset + R&D data + portfolio gap + 3-year lock. <strong>No other partnership in DoorDash's 2026 pipeline does all six simultaneously.</strong></p>
+  </div>
+  <div class="source-line">Source: DoorDash brand-perception research (industry analysts, 2024-25); Coco Robotics scaling roadmap (April 2025 funding); industry food-delivery CAC ranges (Sensor Tower / App Annie Q1 2025).</div>
+  <div class="slide-num">06</div>
+</section>
+
+<!-- 7. WHY BBQ Part 1 -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">07 · WHY BBQ · PART 1</span><span class="ht-section">What DoorDash Gains from K-Cultural Authority</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">K-credibility is not a BBQ asset. It's <span class="dd">a DoorDash brand-equity tool</span> — and BBQ is the only U.S. partner that hands it over.</h1>
+
+  <div class="three-col" style="margin-top: 4px;">
+    <div class="reason-card">
+      <div class="rc-num">01</div>
+      <h4>K-cuisine is one of DoorDash's fastest-growing platform categories</h4>
+      <p>Korean restaurant locations on DoorDash <strong>+10% YoY in 2024</strong> (Circana); K-food orders index <strong>22% higher AOV</strong> than QSR average; group-order rate runs <strong>2.1× general QSR</strong>. BBQ partnership accelerates a category DoorDash already monetizes at premium take-rate.</p>
+    </div>
+    <div class="reason-card">
+      <div class="rc-num">02</div>
+      <h4>K-credibility is DashPass conversion fuel</h4>
+      <p>DashPass conversion rate is highest among consumers who order <strong>premium/cultural cuisines</strong>. Korean food specifically converts free users to DashPass at <strong>~1.4× general-QSR rate</strong>. Each BBQ order is a higher-probability DashPass signup. <strong>BBQ partnership is a DashPass acquisition channel disguised as a brand activation.</strong></p>
+    </div>
+    <div class="reason-card">
+      <div class="rc-num">03</div>
+      <h4>The Asian-American 35M demographic gateway</h4>
+      <p>Asian-Americans index <strong>~1.5× DoorDash usage</strong> vs. general population — a $3B+ annual GMV segment underserved by DoorDash's current sports-heavy partnership portfolio. <strong>K-cuisine is the cultural gateway to that segment</strong>. BBQ is the only K-QSR that lets DoorDash speak to it authentically.</p>
+    </div>
+    <div class="reason-card">
+      <div class="rc-num">04</div>
+      <h4>K-content compounds BBQ's earned media at zero cost</h4>
+      <p>Squid Game S2 ranked <strong>#2 globally on Netflix</strong>. K-pop holds <strong>top engagement-per-impression on TikTok</strong>. K-drama hours streamed +35% YoY. <strong>Every BBQ piece of content rides cultural gravity DoorDash didn't pay for</strong> — earned-media surfaces compound automatically.</p>
+    </div>
+    <div class="reason-card">
+      <div class="rc-num">05</div>
+      <h4>Cultural curation kills the "dumb pipe" perception</h4>
+      <p>DoorDash, Uber Eats, Grubhub — interchangeable to most consumers. Recent QSR partnership research shows <strong>curated cultural partnerships shift consumer preference 8–14pp</strong>. BBQ is the move that re-rates DoorDash from "logistics tool" to <strong>"platform with editorial taste"</strong>.</p>
+    </div>
+    <div class="reason-card">
+      <div class="rc-num">06</div>
+      <h4>Uber Eats cannot match this</h4>
+      <p>Uber Eats has McDonald's, Subway, Wendy's — none tech-forward, none culturally authoritative. <strong>DoorDash + BBQ creates a brand differentiator Uber Eats cannot replicate without lapping by 18+ months</strong>. The "Real Crispy. Last Mile Drops." co-brand line is not available to any competitor.</p>
+    </div>
+  </div>
+  <div class="source-line">Source: Circana — Korean restaurant locations U.S. growth 2024; DoorDash internal AOV by cuisine (Q1 2025); Asian-American consumer report (Pew, 2025); Netflix Top 10 global rankings (Squid Game S2); QSR partnership research benchmarks (Forrester 2025).</div>
+  <div class="slide-num">07</div>
+</section>
+
+<!-- 8. WHY BBQ Part 2 -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">08 · WHY BBQ · PART 2</span><span class="ht-section">The Asset Comparison</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">Among every QSR brand DoorDash could partner with, <span class="bbq">BBQ is the only candidate</span> that clears all five criteria.</h1>
+
+  <table style="margin-top: 4px;">
+    <tr>
+      <th>Candidate</th>
+      <th class="ctr">Hot QSR menu (drone+robot capable)</th>
+      <th class="ctr">K-cultural authority</th>
+      <th class="ctr">U.S. scale on DoorDash today</th>
+      <th class="ctr">Tech-narrative compatible</th>
+      <th class="ctr">Multi-year exclusivity available</th>
+    </tr>
+    <tr class="highlight">
+      <td><strong>bb.q Chicken</strong></td>
+      <td class="ctr" style="color: var(--good); font-weight: 700;">●</td>
+      <td class="ctr" style="color: var(--good); font-weight: 700;">● Genesis BBQ founded 1995</td>
+      <td class="ctr" style="color: var(--good); font-weight: 700;">● 200+ stores, on platform</td>
+      <td class="ctr" style="color: var(--good); font-weight: 700;">● Available</td>
+      <td class="ctr" style="color: var(--good); font-weight: 700;">● 3-yr LOI ready</td>
+    </tr>
+    <tr>
+      <td>Samyang Buldak</td>
+      <td class="ctr" style="color: var(--bbq-red);">○ CPG only</td>
+      <td class="ctr" style="color: var(--good);">●</td>
+      <td class="ctr" style="color: var(--bbq-red);">○ Retail, not delivery</td>
+      <td class="ctr" style="color: var(--amber);">◐</td>
+      <td class="ctr" style="color: var(--bbq-red);">○ Coachella locked thru 2026</td>
+    </tr>
+    <tr>
+      <td>McDonald's</td>
+      <td class="ctr" style="color: var(--good);">●</td>
+      <td class="ctr" style="color: var(--bbq-red);">○ None</td>
+      <td class="ctr" style="color: var(--bbq-red);">○ Uber Eats locked</td>
+      <td class="ctr" style="color: var(--bbq-red);">○ Legacy positioning</td>
+      <td class="ctr" style="color: var(--bbq-red);">○ Existing exclusivity</td>
+    </tr>
+    <tr>
+      <td>Chick-fil-A</td>
+      <td class="ctr" style="color: var(--good);">●</td>
+      <td class="ctr" style="color: var(--bbq-red);">○ None</td>
+      <td class="ctr" style="color: var(--good);">●</td>
+      <td class="ctr" style="color: var(--bbq-red);">○ Conservative brand</td>
+      <td class="ctr" style="color: var(--amber);">◐ Independent operator</td>
+    </tr>
+    <tr>
+      <td>Bonchon</td>
+      <td class="ctr" style="color: var(--good);">●</td>
+      <td class="ctr" style="color: var(--good);">●</td>
+      <td class="ctr" style="color: var(--amber);">◐ 150 stores</td>
+      <td class="ctr" style="color: var(--bbq-red);">○ Traditional ops narrative</td>
+      <td class="ctr" style="color: var(--amber);">◐ Likely available</td>
+    </tr>
+  </table>
+
+  <div class="two-col" style="margin-top: 16px; gap: 28px;">
+    <div class="insight-box">
+      <h5>The candidate-comparison answer</h5>
+      <p>Of the five plausible candidates, <strong>BBQ is the only one that clears all 5 criteria simultaneously</strong>. Bonchon comes closest but lacks the tech-forward narrative DoorDash needs. Chick-fil-A and McDonald's lack K-credibility. Buldak isn't deliverable hot.</p>
+    </div>
+    <div class="insight-box" style="background: rgba(200,16,46,0.06); border-left-color: var(--bbq-red);">
+      <h5 style="color: var(--bbq-red);">What BBQ commits in this partnership</h5>
+      <p>3-year exclusive Korean-QSR partnership with DoorDash · festival-pricing chicken supply · on-site kitchen + booth + ops · co-marketing across BBQ channels (87K Instagram, 202K TikTok) · Korean-cultural campaign IP · brand-amplification across BBQ's footprint.</p>
+    </div>
+  </div>
+  <div class="source-line">Source: BBQ Chicken USA 2025 FDD; McDonald's-Uber Eats existing exclusivity; Samyang Foods CPG-only delivery model; Bonchon U.S. operational scale (Q1 2026).</div>
+  <div class="slide-num">08</div>
+</section>
+
+<!-- 9. PORTFOLIO GAP -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">09</span><span class="ht-section">DoorDash's Portfolio Gap</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">DoorDash owns sports — but has <span class="dd">zero music/cultural-festival anchor</span>. Coachella fills the white space.</h1>
+
+  <h3 class="section" style="margin-top: 4px;">DoorDash's existing sports + cultural portfolio (2024–2025)</h3>
+  <table>
+    <tr><th>Property</th><th>Tier</th><th>Reach (annual)</th><th>DoorDash status</th></tr>
+    <tr><td>NBA + WNBA</td><td>Tier 1</td><td class="num">240M U.S. fans</td><td>Renewed 2024</td></tr>
+    <tr><td>College Football (Learfield + 11 schools)</td><td>Tier 1</td><td class="num">75M+ U.S. fans</td><td>National partnership 2025</td></tr>
+    <tr><td>WWE + UFC (TKO)</td><td>Tier 1</td><td class="num">50M+ U.S. fans</td><td>Added 2025</td></tr>
+    <tr><td>Major League Pickleball</td><td>Tier 2</td><td class="num">10M+ players</td><td>Title sponsor 3-yr</td></tr>
+    <tr><td>NFL</td><td>Tier 1</td><td class="num">200M U.S. fans</td><td><strong style="color: var(--muted);">Held by Uber Eats</strong></td></tr>
+    <tr class="dd-row"><td><strong>Music / cultural festival</strong></td><td><strong>Tier 1</strong></td><td class="num"><strong>—</strong></td><td><strong style="color: var(--dd-red);">CLEAN WHITE SPACE</strong></td></tr>
+  </table>
+
+  <div class="two-col" style="margin-top: 14px; gap: 26px;">
+    <div class="card dd-card">
+      <h4>Why this gap matters</h4>
+      <p style="margin-top: 4px; font-size: 12px;">DoorDash's existing sports anchors index <strong>25–55 male</strong> audience. Coachella indexes <strong>18–34 female-leaning, K-culture and lifestyle</strong>. Different cohort, different brand-equity dimensions, different acquisition channel.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--bbq-red);">
+      <h4>Why Coachella vs. Lollapalooza, ACL, Stagecoach</h4>
+      <p style="margin-top: 4px; font-size: 12px;">Coachella is <strong>highest-EMV-per-attendee festival in the U.S.</strong> — 250K on-site × 380M social impressions × $4.2B regional impact. Lollapalooza is half the social reach; ACL regional; Stagecoach country-only.</p>
+    </div>
+  </div>
+  <div class="source-line">Source: DoorDash IR press releases; sports sponsorship reach databases; Coachella attendee data (Goldenvoice, Sponsor United 2026).</div>
+  <div class="slide-num">09</div>
+</section>
+
+<!-- 10. COCO -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">10</span><span class="ht-section">DoorDash Already Has Coco</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">As of May 2026 — DoorDash has <span class="dd">1,000+ Coco robots operating in 3 cities</span>. <span class="dd">Coco 2 (launched Feb 2026)</span> handles bike lanes and roads. Coachella is the showcase.</h1>
+
+  <div class="two-col" style="margin-top: 4px; gap: 30px;">
+    <div>
+      <h3 class="section">DoorDash × Coco — current state (May 2026)</h3>
+      <table>
+        <tr><th>Indicator</th><th>Status</th></tr>
+        <tr><td>Cities operational</td><td><strong>3 — LA, Chicago, Miami</strong></td></tr>
+        <tr><td>Participating merchants</td><td>~600+ (incl. DashMart for grocery)</td></tr>
+        <tr><td>Active fleet size</td><td><strong>1,000+ robots</strong></td></tr>
+        <tr><td>End-2026 deployment target</td><td>10,000+ robots</td></tr>
+        <tr><td>Coco 2 generation launched</td><td><strong>February 2026</strong></td></tr>
+        <tr><td>Order types fulfilled</td><td>QSR · grocery · everyday essentials</td></tr>
+      </table>
+
+      <h3 class="section" style="margin-top: 14px;">Coco 2 capabilities — relevant to Coachella</h3>
+      <ul class="bullets dd">
+        <li><strong>Bike lanes + roads where permitted</strong> (not just sidewalks) — opens festival access roads + paved corridors.</li>
+        <li><strong>50% faster delivery</strong> vs. prior generation.</li>
+        <li><strong>3× longer uptime</strong> + improved weather/wear resilience.</li>
+        <li><strong>Daily order capacity per robot up</strong>; cost-per-mile down.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="section">Why Coco 2 unlocks ON-SITE delivery (not just VIP)</h3>
+      <div class="card" style="border-left: 3px solid var(--good);">
+        <h4 style="color: var(--good);">The road-access advantage</h4>
+        <p style="margin-top: 4px; font-size: 12px;">Coachella's grounds are mostly grass + dirt — but the <strong>internal service roads, vendor corridors, and food court walkways are paved/compacted</strong>. Coco 2's bike-lane + road capability means robots can operate along these corridors as visible delivery vehicles to designated public pickup zones.</p>
       </div>
-    </section>
 
-    <section class="slide" id="s12" data-step="13">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">미니랜딩</div>
-          <div class="slide-index">13</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">광고 미니랜딩<br>유입 구간의 진단 공백</h2>
-          <p class="subtitle">
-            광고 미니랜딩은 유입 최적화의 핵심일 수 있지만, 지금은 자료가 없어 정밀 진단 불가.
-            이 장표의 목적은 생략이 아니라 자료 요청 기준 정리.
-          </p>
-        </div>
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th>필요 자료</th>
-              <th>지금 상태</th>
-              <th>왜 필요한가</th>
-              <th>자료 확보 후 할 일</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="reco">
-              <td><strong>광고 문구·소재</strong></td>
-              <td>미확보</td>
-              <td>어떤 약속으로 클릭을 만들었는지 확인 필요</td>
-              <td>약속 문장별 성과 비교</td>
-            </tr>
-            <tr>
-              <td><strong>미니랜딩 URL·화면</strong></td>
-              <td>미확보</td>
-              <td>광고와 도착 화면 일치 여부 판단 필요</td>
-              <td>광고 약속-도착 화면 일치 진단</td>
-            </tr>
-            <tr>
-              <td><strong>세그먼트 정보</strong></td>
-              <td>미확보</td>
-              <td>누구에게 어떤 메시지를 보냈는지 알아야 함</td>
-              <td>세그먼트별 문안 분리</td>
-            </tr>
-            <tr>
-              <td><strong>페이지별 성과 로그</strong></td>
-              <td>미확보</td>
-              <td>어디서 이탈하는지 알아야 테스트 가능</td>
-              <td>우선순위 테스트 설계</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="grid-3">
-          <div class="card flat">
-            <div class="eyebrow">지금 할 일</div>
-            <h3>자료 4종 일괄 요청</h3>
-            <p class="muted">소재, URL, 세그먼트, 성과 로그를 한 번에 받아야 함</p>
-          </div>
-          <div class="card flat">
-            <div class="eyebrow">자료 확보 후</div>
-            <h3>2주 내 1차 진단</h3>
-            <p class="muted">광고 약속과 첫 화면 불일치 지점부터 우선 수정</p>
-          </div>
-          <div class="card flat">
-            <div class="eyebrow">AI 활용</div>
-            <h3>문안 후보 자동 생성</h3>
-            <p class="muted">좋은 약속 문장을 세그먼트별로 빠르게 확장</p>
-          </div>
-        </div>
-        <div class="footnote">미니랜딩은 생략이 아니라 유입 구간의 후속 상세 과제.</div>
+      <div class="card" style="margin-top: 10px; border-left: 3px solid var(--good);">
+        <h4 style="color: var(--good);">The "no new infrastructure" argument</h4>
+        <p style="margin-top: 4px; font-size: 12px;">Coachella deployment of <strong>30–50 Coco 2 robots is a relocation from existing LA fleet</strong> via 5-hr flatbed. Existing fleet, dispatch software, merchant integrations. Cost is logistics + climate-hardening, not technology.</p>
       </div>
-    </section>
 
-    <section class="slide" id="s13" data-step="14">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">실행 로드맵</div>
-          <div class="slide-index">14</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">실행 순서<br>유입, 문의, 창업 3단 퍼널 기준<br>오너와 과제 분리</h2>
-          <p class="subtitle">
-            시작은 작게, 반복은 빠르게.
-            첫 90일에는 유입 질문 정의, 랜딩 재설계, 상담 CS 트레이닝 착수가 핵심.
-          </p>
-        </div>
-        <div class="roadmap">
-          <div class="phase">
-            <div class="window">0–30일</div>
-            <h3>진단과 기준 정리</h3>
-            <ul class="bullet-list">
-              <li>타겟 3종과 핵심 질문 20개 확정</li>
-              <li>유입 질문군과 GPT 모니터링 질문셋 확정</li>
-              <li>미니랜딩 자료 4종 일괄 요청</li>
-            </ul>
-            <div class="owner-tags"><span>브랜딩전략실</span><span>DX</span><span>대행사</span></div>
-          </div>
-          <div class="phase">
-            <div class="window">31–60일</div>
-            <h3>유입·문의 재설계</h3>
-            <ul class="bullet-list">
-              <li>질문형 페이지 10개 오픈</li>
-              <li>랜딩 첫 화면과 CTA 즉답형으로 교체</li>
-              <li>월간 GPT·Gemini 점검 시작</li>
-            </ul>
-            <div class="owner-tags"><span>브랜딩전략실</span><span>DX</span><span>브랜드콘텐츠</span></div>
-          </div>
-          <div class="phase">
-            <div class="window">61–90일</div>
-            <h3>창업 전환 체계화</h3>
-            <ul class="bullet-list">
-              <li>상담 CS 스크립트와 objection 대응안 배포</li>
-              <li>문의 후 카카오·메일 후속 자동화 연결</li>
-              <li>미니랜딩 자료 도착 시 광고 약속-도착 화면 일치 진단</li>
-            </ul>
-            <div class="owner-tags"><span>가맹영업</span><span>CRM</span><span>대행사</span></div>
-          </div>
-          <div class="phase">
-            <div class="window">4–6개월</div>
-            <h3>퍼널 최적화 반복</h3>
-            <ul class="bullet-list">
-              <li>질문형 페이지 30개 확대</li>
-              <li>AI 답변 점유와 문의 질 월간 추적</li>
-              <li>CRM 자동화와 미니랜딩 variants 운영</li>
-            </ul>
-            <div class="owner-tags"><span>브랜딩전략실</span><span>CRM</span><span>DX</span></div>
-          </div>
-        </div>
-        <div class="kpi-row">
-          <div class="kpi-pill"><strong>20개</strong>핵심 질문</div>
-          <div class="kpi-pill"><strong>10개</strong>질문형 페이지</div>
-          <div class="kpi-pill"><strong>문의</strong>전환 기준 정리</div>
-          <div class="kpi-pill"><strong>창업</strong>전환 기준 정리</div>
-          <div class="kpi-pill"><strong>미니랜딩</strong>자료 확보 완료</div>
-        </div>
-        <div class="footnote">실행 원칙: 유입은 채널, 문의는 랜딩, 창업은 상담 체계로 나눠서 관리.</div>
+      <div class="insight-box" style="margin-top: 12px;">
+        <h5>The "we've done the homework" data</h5>
+        <p>1,000 robots × ~3 deliveries/hr × 14 hr/day = <strong>~42K deliveries/day operational capacity</strong> in the existing Coco fleet. Coachella requires <strong>~1,200–2,000 VIP + ~3,000–5,000 on-site</strong> over 6 days = ~10K total — well within current fleet's capacity envelope.</p>
       </div>
-    </section>
+    </div>
+  </div>
+  <div class="source-line">Source: DoorDash + Coco Robotics partnership announcement (Apr 2025); Coco Miami expansion (Nov 2025); Coco 2 launch announcement (Feb 2026, PRNewswire); RoboticsTomorrow industry analysis (Q1 2026); Restaurant Dive coverage of Coco bike-lane capability expansion.</div>
+  <div class="slide-num">10</div>
+</section>
 
-    <section class="slide" id="s14" data-step="15">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">기대 효과</div>
-          <div class="slide-index">15</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">기대 효과<br>유입, 문의, 창업<br>세 단계 동시 개선</h2>
-          <p class="subtitle">
-            성과 판단의 핵심은 퍼널 개선 폭.
-            <br>유입의 질.
-            <br>문의 전환.
-            <br>창업 전환.
-          </p>
-        </div>
-        <div class="scenario-layout">
-          <div class="card">
-            <div class="eyebrow">기대 변화</div>
-            <table class="usecase-table">
-              <thead>
-                <tr>
-                  <th>지표</th>
-                  <th>현재 상태</th>
-                  <th>개선 방향</th>
-                  <th>의미</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>유입 질</strong></td>
-                  <td>광고 의존 높음</td>
-                  <td>AI·자연 검색·직접 유입 비중 확대</td>
-                  <td>새로운 질문형 유입 입구 확보</td>
-                </tr>
-                <tr>
-                  <td><strong>문의 전환</strong></td>
-                  <td>랜딩에서 질문 해소 부족</td>
-                  <td>첫 화면 즉답 구조와 CTA 개선</td>
-                  <td>문의 클릭과 폼 제출 증가</td>
-                </tr>
-                <tr>
-                  <td><strong>창업 전환</strong></td>
-                  <td>상담 품질 편차 존재 가능성</td>
-                  <td>질문별 스크립트와 후속 접촉 표준화</td>
-                  <td>문의 이후 계약 전환율 개선</td>
-                </tr>
-                <tr>
-                  <td><strong>운영 효율</strong></td>
-                  <td>채널과 상담 데이터 분리 가능성</td>
-                  <td>유입·문의·창업 데이터 연결</td>
-                  <td>무엇이 먹히는지 빠른 판단 가능</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="callout">
-              핵심은 유입만 늘리는 접근이 아님.
-              <br>질문형 유입 확대.
-              <br>랜딩 전환 개선.
-              <br>상담 CS 표준화.
-              <br>세 단계 동시 개선 구조.
-            </div>
-          </div>
-          <div class="card">
-            <div class="eyebrow">측정 기준</div>
-            <h3>핵심 KPI 방향</h3>
-            <div class="scenario-bars">
-              <div class="bar-card">
-                <div class="v-bar" style="--h: 96px;">↑</div>
-                <div class="v-bar-label">AI·자연 유입 비중</div>
-              </div>
-              <div class="bar-card">
-                <div class="v-bar alt" style="--h: 164px;">↑</div>
-                <div class="v-bar-label">문의 전환율</div>
-              </div>
-              <div class="bar-card">
-                <div class="v-bar alt" style="--h: 142px;">↑</div>
-                <div class="v-bar-label">상담 예약·완료율</div>
-              </div>
-              <div class="bar-card">
-                <div class="v-bar alt" style="--h: 176px;">↑</div>
-                <div class="v-bar-label">문의→창업 전환율</div>
-              </div>
-            </div>
-            <div class="stack-list">
-              <div class="stack-item">
-                <strong>원칙</strong>
-                <span class="muted">현재 수치 확인 후 기준선 확정</span>
-              </div>
-              <div class="stack-item">
-                <strong>핵심 변화</strong>
-                <span class="muted">질문형 유입 증가 + 랜딩 즉답 + 상담 CS 표준화</span>
-              </div>
-              <div class="stack-item">
-                <strong>의미</strong>
-                <span class="muted">같은 퍼널 안에서 문의와 창업 전환 가능성 확대</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="footnote">정량 목표는 실제 유입·문의·창업 데이터 확보 후 재설정 필요.</div>
+<!-- 11. WING/FLYTREX -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">11</span><span class="ht-section">DoorDash Already Has Drone Delivery</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">Four U.S. companies have FAA BVLOS approval. DoorDash works with <span class="dd">two of them</span>. The infrastructure is operational — Coachella is the showcase.</h1>
+
+  <div class="two-col" style="margin-top: 4px; gap: 30px;">
+    <div>
+      <h3 class="section">DoorDash's existing drone delivery footprint</h3>
+      <table>
+        <tr><th>Partner</th><th>Geography</th><th>Status</th></tr>
+        <tr><td>Wing (Alphabet)</td><td>Christiansburg VA</td><td>Operational since 2024</td></tr>
+        <tr><td>Flytrex</td><td>Dallas-Fort Worth TX</td><td>Operational since June 2025</td></tr>
+        <tr><td>Flytrex</td><td>Frisco/Little Elm TX</td><td>BVLOS-approved Aug 2025</td></tr>
+        <tr class="highlight"><td><strong>Flytrex/Wing (proposed)</strong></td><td><strong>Coachella, Indio CA</strong></td><td><strong>April 2027 target</strong></td></tr>
+      </table>
+
+      <h3 class="section" style="margin-top: 12px;">Performance benchmarks</h3>
+      <div class="four-col">
+        <div class="compact-metric"><div class="cm-val">&lt; 30 min</div><div class="cm-label">Avg delivery</div></div>
+        <div class="compact-metric"><div class="cm-val">7:12</div><div class="cm-label">Fastest delivery</div></div>
+        <div class="compact-metric"><div class="cm-val">350K+</div><div class="cm-label">Wing global deliveries</div></div>
+        <div class="compact-metric"><div class="cm-val">2.5 mi</div><div class="cm-label">VA service radius</div></div>
       </div>
-    </section>
+    </div>
+    <div>
+      <h3 class="section">The realistic April 2027 path (FAA-validated)</h3>
+      <ul class="bullets dd">
+        <li><strong>Tethered/geofenced delivery</strong> — not free-flight over crowds. Defined corridors with fixed drop pads.</li>
+        <li><strong>Coachella-issued TFR</strong> — Choctaw Nation Festival 2024 precedent.</li>
+        <li><strong>On-site visible cycling</strong> — drones travel between BBQ kitchen launch pad and tent-zone receiving pads via approved airspace corridor; visible to public from ground but not flying overhead.</li>
+        <li><strong>5–10 lb payload</strong> — fits 2-piece + side combo at festival pricing.</li>
+        <li><strong>5,000–8,000 deliveries</strong> across 2 weekends.</li>
+      </ul>
 
-    <section class="slide" id="s15" data-step="16">
-      <div class="slide-shell">
-        <div class="slide-top">
-          <div class="section-tag">부록</div>
-          <div class="slide-index">16</div>
-        </div>
-        <div class="title-wrap">
-          <h2 class="title">근거 자료<br>내부 테스트<br>다음 단계</h2>
-          <p class="subtitle">
-            유입·문의·창업 퍼널 기준으로 전체 구조 재정리.
-            광고 미니랜딩은 별도 자료 확보 후 2차 진단 필요.
-          </p>
-        </div>
-        <div class="source-grid">
-          <div class="source-list">
-            <div class="source-item">
-              <strong>BBQ 공식 자산</strong>
-              <span>
-                <a href="https://bbqstart.co.kr/" target="_blank" rel="noreferrer">BBQ 창업 랜딩</a>,
-                <a href="https://bbqstart.co.kr/api/store?limit=200&amp;offset=0" target="_blank" rel="noreferrer">추천점포 API</a>,
-                <a href="https://bbqstart.co.kr/api/store/count-by-region" target="_blank" rel="noreferrer">지역 카운트 API</a>
-              </span>
-            </div>
-            <div class="source-item">
-              <strong>AI 검색 변화</strong>
-              <span>
-                <a href="https://openai.com/chatgpt/search-product-discovery/" target="_blank" rel="noreferrer">OpenAI Product Discovery</a>,
-                <a href="https://blog.google/products-and-platforms/products/search/google-search-ai-mode-update/" target="_blank" rel="noreferrer">Google AI Search Update</a>,
-                <a href="https://www.adobe.com/express/learn/blog/chatgpt-as-a-search-engine" target="_blank" rel="noreferrer">Adobe ChatGPT Search Survey</a>
-              </span>
-            </div>
-            <div class="source-item">
-              <strong>국내 조사 메모</strong>
-              <span>과기정통부·KISA 인터넷 이용 조사 흐름, KDI 생성형 AI 활용 브리프</span>
-            </div>
-            <div class="source-item">
-              <strong>내부 테스트</strong>
-              <span>GPT incognito 질문 결과 캡처 5종, 2026.04.15 기준</span>
-            </div>
-            <div class="source-item">
-              <strong>현재 범위 제외</strong>
-              <span>광고 미니랜딩 URL, 소재, 세그먼트, 페이지별 성과 로그 미확보</span>
-            </div>
-          </div>
-          <div class="tool-shortlist">
-            <div class="tool-card">
-              <strong>다음 단계 1</strong>
-              <span>광고 문구·소재, 미니랜딩 URL 일괄 확보</span>
-            </div>
-            <div class="tool-card">
-              <strong>다음 단계 2</strong>
-              <span>질문 20개와 상담 스크립트 오너 확정</span>
-            </div>
-            <div class="tool-card">
-              <strong>다음 단계 3</strong>
-              <span>랜딩 첫 화면과 상담 CS 트레이닝 동시 반영</span>
-            </div>
-            <div class="tool-card">
-              <strong>한 줄 결론</strong>
-              <span>BBQ 창업 효율 개선의 시작점은 더 많은 광고 구매보다, 유입·문의·창업 전 구간에서 같은 질문에 일관되게 답하는 체계 구축.</span>
-            </div>
-          </div>
-        </div>
-        <div class="footnote">모든 시각 요소 내장형 구성. 브라우저 외부 의존성 없음.</div>
+      <div class="disclaimer">
+        <strong>Regulatory disclaimer:</strong> Drone surface assumes Coachella TFR + Goldenvoice approval + Flytrex/Wing operator-of-record certification by April 2027. <strong>Tier-2 fallback (zip-line / fixed-cable food-transport mechanic in BBQ vendor zone)</strong> ensures the visible-drop moment lands even if FAA timeline slips — same hero shot, no airspace risk.</p>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
+  <div class="source-line">Source: DoorDash + Wing Christiansburg pilot data (2024-25); Flytrex FAA BVLOS approval (Aug 2025); Choctaw Nation Festival drone TFR precedent (Aug-Sept 2024); FAA Part 135 commercial drone framework.</div>
+  <div class="slide-num">11</div>
+</section>
 
-  <script>
-    const sections = [...document.querySelectorAll(".slide")];
-    const navLinks = [...document.querySelectorAll(".slide-nav a")];
-    const progressCount = document.getElementById("progressCount");
+<!-- 12. THE 5 DROPS — restructured with light cards -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">12</span><span class="ht-section">Last Mile Drops · The 5 Drops</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">Three delivery surfaces — <span class="dd">drone, robot, pre-arrival</span>. Two transversal mechanics — <span class="dd">app, data</span>. One unified platform.</h1>
 
-    const setActive = (id) => {
-      navLinks.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === `#${id}`));
-      const step = document.getElementById(id)?.dataset.step ?? "00";
-      progressCount.textContent = `${step} / 16`;
-    };
+  <h3 class="section" style="margin-top: 4px;">THREE DELIVERY SURFACES</h3>
+  <div class="three-col" style="margin-top: 4px;">
+    <div class="drop-card">
+      <div class="dc-icon-wrap">
+        <div class="dc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 4l10 8"/><path d="M5 12v8h14v-8"/></svg></div>
+        <div class="dc-tag">DRONE · ON-SITE + TENT</div>
+      </div>
+      <h4>Tethered drone delivery</h4>
+      <ul class="bullets" style="margin-top: 4px;">
+        <li>Flytrex/Wing operator + Coachella TFR.</li>
+        <li>BBQ kitchen → camping zone fixed pads.</li>
+        <li>Visible cycling = on-site hero moment for all 250K attendees.</li>
+        <li>5,000–8,000 deliveries / 2 weekends.</li>
+      </ul>
+      <div class="dc-footer">First major U.S. QSR drone at festival. Subject to FAA TFR + Goldenvoice approval; zip-line fallback retains hero visual.</div>
+    </div>
 
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setActive(visible.target.id);
-    }, {
-      threshold: [0.35, 0.55, 0.75]
-    });
+    <div class="drop-card d2">
+      <div class="dc-icon-wrap">
+        <div class="dc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="dc-tag">PRE-ARRIVAL · HOUSE</div>
+      </div>
+      <h4>Airbnb welcome package</h4>
+      <ul class="bullets" style="margin-top: 4px;">
+        <li>DoorDash routes pre-orders directly via existing platform.</li>
+        <li>Hosts opt in via DoorDash for-business portal.</li>
+        <li>Fridge-stocked Day 1 of guest stay.</li>
+        <li>1,000–2,500 House Drops · $150 avg AOV.</li>
+      </ul>
+      <div class="dc-footer">First QSR pre-arrival hospitality drop. No external partnership required — runs on DoorDash for-business infrastructure.</div>
+    </div>
 
-    sections.forEach((section) => observer.observe(section));
-    setActive("s00");
-  </script>
+    <div class="drop-card d3">
+      <div class="dc-icon-wrap">
+        <div class="dc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="8" cy="20" r="1.5"/><circle cx="16" cy="20" r="1.5"/></svg></div>
+        <div class="dc-tag">COCO · VIP</div>
+      </div>
+      <h4>Sidewalk robot service</h4>
+      <ul class="bullets" style="margin-top: 4px;">
+        <li>30–50 Coco bots relocated from LA fleet.</li>
+        <li>VIP/artist compound paved zones only.</li>
+        <li>Zero airspace risk · 24-hr service.</li>
+        <li>1,200–2,000 deliveries.</li>
+      </ul>
+      <div class="dc-footer">First sidewalk-robot deployment at major U.S. cultural festival. Existing infrastructure relocated.</div>
+    </div>
+  </div>
+
+  <h3 class="section" style="margin-top: 18px;">TWO TRANSVERSAL MECHANICS — work across all surfaces</h3>
+  <div class="two-col" style="margin-top: 4px; gap: 14px;">
+    <div class="drop-card d4" style="flex-direction: row; gap: 12px; align-items: flex-start; min-height: auto;">
+      <div class="dc-icon" style="margin-top: 2px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2"/><circle cx="12" cy="18" r="0.5" fill="currentColor"/></svg></div>
+      <div style="flex: 1;">
+        <div class="dc-tag">TRANSVERSAL · APP</div>
+        <h4 style="margin: 2px 0 4px;">Stage-Synced Drops</h4>
+        <p style="font-size: 11.5px; color: var(--charcoal); line-height: 1.5;">Limited menu unlocks at set times. <strong>30-min window · 200 orders only per drop</strong>. Tempo-themed pairings (no artist IPs). FOMO scarcity drives app session frequency. <strong>25-40K orders triggered.</strong></p>
+      </div>
+    </div>
+    <div class="drop-card d5" style="flex-direction: row; gap: 12px; align-items: flex-start; min-height: auto;">
+      <div class="dc-icon" style="margin-top: 2px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M7 7h4v4H7zM13 7h4v4h-4zM7 13h4v4H7zM13 13h4v4h-4z"/></svg></div>
+      <div style="flex: 1;">
+        <div class="dc-tag">TRANSVERSAL · DATA</div>
+        <h4 style="margin: 2px 0 4px;">Flavor Heatmap</h4>
+        <p style="font-size: 11.5px; color: var(--charcoal); line-height: 1.5;">Post-event co-branded data product. Order patterns × set times × DMA × surface. Published Q3 2027. <strong>B2B asset for restaurant-partner recruitment for 12+ months.</strong></p>
+      </div>
+    </div>
+  </div>
+  <div class="source-line">Source: DoorDash + Coco/Flytrex/Wing partnership operational data; Airbnb Coachella Valley listing density; FAA Part 135 commercial drone delivery framework.</div>
+  <div class="slide-num">12</div>
+</section>
+
+<!-- 13. VIP DROP HOW IT WORKS — NEW DEDICATED SLIDE -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">13</span><span class="ht-section">VIP Drop · How It Actually Works</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">VIP Drop runs on <span class="dd">existing Coco infrastructure relocated 130 miles east</span> — operating in a 2-acre paved compound DoorDash already engineers around.</h1>
+
+  <div class="two-col" style="margin-top: 4px; gap: 30px;">
+    <div>
+      <h3 class="section">The operational mechanics</h3>
+      <ul class="bullets dd">
+        <li><strong>BBQ kitchen tent at compound perimeter</strong> — adjacent to artist trailer access road.</li>
+        <li><strong>30–50 Coco robots</strong> relocated from LA fleet via flatbed truck (5-hr drive). Standard fleet relocation, no new build.</li>
+        <li><strong>4–6 charging stations</strong> at compound perimeter (existing Coco station design).</li>
+        <li><strong>VIP compound = 2–5 acres of paved walkways</strong> behind main stage. Coco's native operating environment.</li>
+        <li><strong>Order via DoorDash app</strong> from VIP guest's phone → BBQ kitchen → Coco loads → 5–8 min delivery to GPS-tagged endpoint.</li>
+        <li><strong>Operating hours: 11am–2am</strong> across 2 weekends. ~14 hr/day × 6 days = 84 operating hours.</li>
+      </ul>
+
+      <h3 class="section" style="margin-top: 12px;">Coco fleet utilization math</h3>
+      <ul class="bullets dd">
+        <li>40 robots × 84 hours × ~3 deliveries/hr = <strong>capacity for ~10K deliveries</strong> across festival window.</li>
+        <li>Target: 1,200–2,000 actual VIP deliveries. <strong>Easy capacity headroom</strong> — robots stress-tested at 70% utilization, not 100%.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="section">Why this is operationally low-risk</h3>
+      <div class="card" style="border-left: 3px solid var(--good);">
+        <h4 style="color: var(--good);">Controlled environment</h4>
+        <p style="margin-top: 4px; font-size: 12px;">VIP compound has <strong>controlled access perimeter</strong>, paved walkways, no public crowds, no airspace concerns, no pedestrian density issues. Coco's exact operating envelope.</p>
+      </div>
+      <div class="card" style="margin-top: 10px; border-left: 3px solid var(--good);">
+        <h4 style="color: var(--good);">Existing tech, existing partner</h4>
+        <p style="margin-top: 4px; font-size: 12px;">Not a new technology pilot. Coco has done 100K+ deliveries in LA, Chicago, Miami already. <strong>This is a relocation of existing infrastructure for 6 days.</strong></p>
+      </div>
+      <div class="card" style="margin-top: 10px; border-left: 3px solid var(--good);">
+        <h4 style="color: var(--good);">Climate-hardened</h4>
+        <p style="margin-top: 4px; font-size: 12px;">Coco operates in LA summer (95°F+) routinely. Indio April average is 87°F. <strong>Temperature is not the risk; battery cycling is — addressed by 4-6 charging station design.</strong></p>
+      </div>
+
+      <div class="insight-box" style="margin-top: 12px;">
+        <h5>The DoorDash CFO answer</h5>
+        <p>The VIP Drop is not a stunt. It's a <strong>strategic deployment of existing Coco infrastructure</strong> that produces $2-3M of equivalent R&D data on extreme-condition fleet operations, while also generating Coachella-grade celebrity content for the brand-marketing P&L.</p>
+      </div>
+    </div>
+  </div>
+  <div class="source-line">Source: Coco Robotics technical specs and operational data (LA fleet); Coachella VIP compound architecture; DoorDash Coco-relocation logistics protocols.</div>
+  <div class="slide-num">13</div>
+</section>
+
+<!-- 14. CAC ECONOMICS -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">14</span><span class="ht-section">DoorDash CAC Economics</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">$1.2M of DoorDash investment yields <span class="dd">80–120K SoCal app downloads</span> at <span class="dd">$10–14 effective CAC</span> — 30–50% below paid acquisition.</h1>
+
+  <div class="two-col" style="margin-top: 4px; gap: 30px;">
+    <div>
+      <h3 class="section">CAC comparison</h3>
+      <div class="bar-row">
+        <div class="bar-label">DoorDash paid (high)</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 100%; background: var(--muted);">$25</div></div>
+        <div class="bar-val">$25</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">DoorDash paid avg</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 80%; background: var(--charcoal);">$20</div></div>
+        <div class="bar-val">$20</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">DoorDash paid low</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 60%; background: var(--navy);">$15</div></div>
+        <div class="bar-val">$15</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><strong>Last Mile Drops HIGH</strong></div>
+        <div class="bar-track"><div class="bar-fill" style="width: 56%; background: var(--dd-red);">$14</div></div>
+        <div class="bar-val">$14</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><strong>Last Mile Drops LOW</strong></div>
+        <div class="bar-track"><div class="bar-fill" style="width: 40%; background: var(--bbq-red);">$10</div></div>
+        <div class="bar-val">$10</div>
+      </div>
+      <p class="small" style="margin-top: 10px;">Effective CAC = DoorDash spend ÷ incremental SoCal app downloads (90-day post-event vs. control DMAs). $1.2M / 80K low: $15. $1.2M / 120K high: $10.</p>
+    </div>
+    <div>
+      <h3 class="section">DoorDash returns — modeled</h3>
+      <table>
+        <tr><th>Return stream</th><th class="num">Conservative</th><th class="num">Base</th></tr>
+        <tr><td>App downloads (SoCal, 90-day)</td><td class="num">80,000</td><td class="num">120,000</td></tr>
+        <tr><td>Effective CAC</td><td class="num">$14</td><td class="num">$10</td></tr>
+        <tr><td>CAC arbitrage vs paid</td><td class="num">$0.6M</td><td class="num">$1.5M</td></tr>
+        <tr><td>EMV (3 industry-firsts)</td><td class="num">$18M</td><td class="num">$28M</td></tr>
+        <tr><td>House Drop incremental GMV</td><td class="num">$150K</td><td class="num">$375K</td></tr>
+        <tr><td>MAU lift sustained 6-mo</td><td class="num">+200K</td><td class="num">+300K</td></tr>
+        <tr><td>Brand-equity vs Uber Eats</td><td class="num">+12pp</td><td class="num">+18pp</td></tr>
+        <tr><td>Coco extreme-heat R&amp;D value</td><td class="num">$2M</td><td class="num">$3M</td></tr>
+        <tr><td>B2B case-study downloads</td><td class="num">1,000</td><td class="num">2,500</td></tr>
+        <tr class="dd-row"><td><strong>Total economic value</strong></td><td class="num"><strong>$18M</strong></td><td class="num"><strong>$30M</strong></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="insight-box" style="margin-top: 14px;">
+    <h5>The bottom-line ROI</h5>
+    <p><strong>$1.2M investment → $18-30M total economic value = 15–25× ROI multiple.</strong> Even at the conservative $18M floor, DoorDash beats paid CAC AND captures a 24-month B2B asset paid acquisition cannot deliver.</p>
+  </div>
+  <div class="source-line">Source: Industry food-delivery CAC benchmarks Q1 2025 (Sensor Tower, App Annie); DoorDash Q4 2024 earnings; festival EMV models (Sponsor United 2026).</div>
+  <div class="slide-num">14</div>
+</section>
+
+<!-- 15. JOINT PLATFORM ECONOMICS -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">15</span><span class="ht-section">Joint Platform Economics</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">DoorDash invests <span class="dd">$1.2M cash</span>. BBQ commits <span class="bbq">parallel value</span> — supply, ops, brand, IP. The activation is shared end-to-end.</h1>
+
+  <div class="two-col" style="margin-top: 4px; gap: 30px;">
+    <div>
+      <h3 class="section">DoorDash investment composition</h3>
+      <table>
+        <tr><th>Line item</th><th class="num">Amount</th></tr>
+        <tr><td>Coachella sponsorship + airspace fees</td><td class="num">$400K</td></tr>
+        <tr><td>Marketing co-spend (DMA-targeted, app push)</td><td class="num">$250K</td></tr>
+        <tr><td>Coco LA→Indio relocation + ops</td><td class="num">$250K</td></tr>
+        <tr><td>Flytrex/Wing operator fees</td><td class="num">$200K</td></tr>
+        <tr><td>Stage Drops engineering + Flavor Heatmap data product</td><td class="num">$100K</td></tr>
+        <tr class="dd-row"><td><strong>DoorDash total</strong></td><td class="num"><strong>$1.2M</strong></td></tr>
+      </table>
+      <p class="small" style="margin-top: 10px;">All DoorDash investment is direct cash outlay against partnership budget. No internal cost re-allocation required.</p>
+    </div>
+    <div>
+      <h3 class="section">BBQ commits parallel value</h3>
+      <table>
+        <tr><th>Contribution</th><th>What it covers</th></tr>
+        <tr><td><strong>Supply chain</strong></td><td>Festival-pricing chicken, ingredients, packaging — bulk supply guarantee</td></tr>
+        <tr><td><strong>On-site operations</strong></td><td>Kitchen tent, booth build-out, on-site staffing, inventory mgmt</td></tr>
+        <tr><td><strong>Brand IP</strong></td><td>3-year exclusive Korean-QSR partnership · Coachella co-brand rights</td></tr>
+        <tr><td><strong>Co-marketing</strong></td><td>BBQ Instagram (87K), TikTok (202K), email lists, in-store signage at 200+ U.S. stores</td></tr>
+        <tr><td><strong>Cultural campaign IP</strong></td><td>Korean-cultural moments, K-pop linkages, MGH agency assets</td></tr>
+        <tr><td><strong>Korean delivery data</strong></td><td>Anonymized sharing for DoorDash Asia roadmap reference</td></tr>
+        <tr class="highlight"><td><strong>BBQ total commitment</strong></td><td>Parallel cash + in-kind ≈ joint platform partnership</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="insight-box" style="margin-top: 14px;">
+    <h5>How to think about the joint commitment</h5>
+    <p>This is not a sponsorship line item where DoorDash buys logo placement. <strong>It's a co-built activation where DoorDash brings cash and infrastructure, BBQ brings supply, ops, and brand.</strong> Both parties have equivalent skin in the game; both parties bear operational risk; both parties share content rights.</p>
+  </div>
+  <div class="source-line">Source: Standard tier-1 festival sponsorship cost structures (Sponsor United Coachella 2026); DoorDash Coco/Flytrex/Wing operator pricing precedents; QSR co-activation commitment frameworks.</div>
+  <div class="slide-num">15</div>
+</section>
+
+<!-- 16. JOINT KPI -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">16</span><span class="ht-section">Joint KPI Framework</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">DoorDash measures CAC, MAU, B2B signal. BBQ measures pipeline. <span class="bbq">Together we measure</span> EMV, content, the Flavor Heatmap.</h1>
+
+  <div class="three-col" style="margin-top: 4px;">
+    <div class="card" style="border-top: 3px solid var(--dd-red);">
+      <h4 style="color: var(--dd-red);">DoorDash KPIs</h4>
+      <ul class="bullets dd" style="font-size: 11.5px; margin-top: 6px;">
+        <li><strong>App downloads SoCal:</strong> 80–120K (90-day)</li>
+        <li><strong>Effective CAC:</strong> $10–14</li>
+        <li><strong>House Drop GMV:</strong> $150–375K</li>
+        <li><strong>MAU lift sustained 6-mo:</strong> +200–300K</li>
+        <li><strong>Brand-equity vs Uber Eats:</strong> +12–18pp</li>
+        <li><strong>EMV (3-firsts cycle):</strong> $18–28M</li>
+        <li><strong>Coco R&amp;D data value:</strong> $2–3M</li>
+        <li><strong>B2B case-study downloads:</strong> 1,000–2,500</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--bbq-red);">
+      <h4>BBQ KPIs</h4>
+      <ul class="bullets" style="font-size: 11.5px; margin-top: 6px;">
+        <li><strong>Brand awareness lift (West):</strong> +15–20pp</li>
+        <li><strong>BBQ app downloads (West):</strong> +250–400%</li>
+        <li><strong>Net new U.S. stores (24-mo):</strong> 15–22</li>
+        <li><strong>Qualified franchise inquiries:</strong> 400–600</li>
+        <li><strong>5-yr royalty capture:</strong> $5.2–7.6M</li>
+        <li><strong>AUV uplift activated DMAs:</strong> $1.20M → $1.85M Y2</li>
+        <li><strong>SNS follower growth:</strong> +50K</li>
+        <li><strong>On-site F&amp;B revenue:</strong> $180–250K</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--gold);">
+      <h4 style="color: var(--gold);">JOINT KPIs</h4>
+      <ul class="bullets" style="font-size: 11.5px; margin-top: 6px;">
+        <li><strong>Combined EMV:</strong> $24–36M</li>
+        <li><strong>Aggregate social impressions:</strong> 500M+</li>
+        <li><strong>#LastMileDrops performance:</strong> 1,000+ posts, 180M+ reach</li>
+        <li><strong>Industry-first PR placements:</strong> 5+ (3 firsts × multi-cycle)</li>
+        <li><strong>Co-branded content deliverables:</strong> 5 pieces</li>
+        <li><strong>Flavor Heatmap launch:</strong> Q3 2027</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insight-box" style="margin-top: 14px;">
+    <h5>Attribution methodology — quadruple triangulation</h5>
+    <p><strong>1. Control DMA</strong> (Phoenix/Sacramento/Vegas — filtered out via geo-targeting) · <strong>2. Native attribution</strong> (DoorDash app first-time-user source flag) · <strong>3. Brand-tracking lift</strong> (quarterly survey) · <strong>4. CRM source flag</strong> (BBQ inquiries tagged at intake). If 2 of 4 streams show &lt;50% lift, attribution downgrades 50%.</p>
+  </div>
+  <div class="source-line">Source: DoorDash native app analytics; BBQ USA franchise CRM; brand-tracking quarterly methodology; Placer.ai store-visit measurement.</div>
+  <div class="slide-num">16</div>
+</section>
+
+<!-- 17. DEFENSIBILITY -->
+<section class="slide dark">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">17</span><span class="ht-section">Defensibility vs Uber Eats</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">Three locks make a 2028 Uber Eats counter-bid <span class="dd">structurally impossible to replicate</span> in time.</h1>
+
+  <div class="three-col" style="margin-top: 8px;">
+    <div class="card dark-card" style="border-left: 3px solid #FF8B97;">
+      <h4 style="color: #FF8B97;">LOCK 1 · 3-year DoorDash contract</h4>
+      <p style="margin-top: 6px; font-size: 12px;"><strong>3-year Korean-QSR category exclusivity.</strong> BBQ commits to DoorDash as exclusive third-party delivery partner for Coachella + branded activations through 2029.</p>
+      <p style="margin-top: 8px; font-size: 11px; color: rgba(245,240,230,0.7); font-style: italic;">Implication: Uber Eats cannot pitch BBQ a competing Coachella deal until 2030.</p>
+    </div>
+    <div class="card dark-card" style="border-left: 3px solid #FF8B97;">
+      <h4 style="color: #FF8B97;">LOCK 2 · Coachella Year-2 option</h4>
+      <p style="margin-top: 6px; font-size: 12px;"><strong>Year-2 category exclusivity option</strong> to first-year tier-1 partners (Buldak 2025→2026 precedent). BBQ holds the 2028 option.</p>
+      <p style="margin-top: 8px; font-size: 11px; color: rgba(245,240,230,0.7); font-style: italic;">Implication: a 2028 chicken/QSR competitor cannot enter Coachella in the same category if exercised.</p>
+    </div>
+    <div class="card dark-card" style="border-left: 3px solid #FF8B97;">
+      <h4 style="color: #FF8B97;">LOCK 3 · Drone-operator geographic lock</h4>
+      <p style="margin-top: 6px; font-size: 12px;">Flytrex/Wing operate <strong>per-geography Part 135 waivers</strong>. Coachella Valley airspace approval forecloses the lane for competitors in 2028.</p>
+      <p style="margin-top: 8px; font-size: 11px; color: rgba(245,240,230,0.7); font-style: italic;">Implication: Uber Eats counter-bid in 2028 cannot replicate without 6+ month airspace re-cert.</p>
+    </div>
+  </div>
+
+  <div class="insight-box dark-bg" style="margin-top: 16px;">
+    <h5>Cumulative defensibility — the 3-year clear runway</h5>
+    <p>Beyond the 3 contractual locks, the four-surface architecture is itself defensibility. <strong>A 2028 competitor copying one drop is easy; copying drone + Coco + pre-arrival + app integration requires partner replication that takes 18+ months.</strong></p>
+  </div>
+  <div class="source-line">Source: Coachella partnership ladder structure (Buldak 2025-26 precedent); FAA Part 135 air-carrier certification; industry DoorDash multi-year exclusivity precedents.</div>
+  <div class="slide-num">17</div>
+</section>
+
+<!-- 18. RISK & FALLBACK -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">18</span><span class="ht-section">Risk Register · Fallback Ladder</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">Five named risks. Three-tier fallback ladder. <span class="dd">No scenario kills Last Mile Drops</span> — only the scope.</h1>
+
+  <h3 class="section" style="margin-top: 4px;">Risk register</h3>
+  <table>
+    <tr><th>Risk</th><th>What breaks</th><th>Mitigation</th></tr>
+    <tr><td><strong>1. FAA timing slip</strong></td><td>BVLOS waiver delayed past April 2027</td><td>Tier 2 (zip-line/cable visible delivery + Coco + App + House)</td></tr>
+    <tr><td><strong>2. Goldenvoice rejects drone TFR</strong></td><td>Coachella declines drone airspace</td><td>Same Tier 2 — visible delivery preserved via cable mechanic</td></tr>
+    <tr><td><strong>3. Coco 2 untested at festival density</strong></td><td>Coco 2 launched Feb 2026 — no festival-scale data yet</td><td><strong>Q3 2026 Coco 2 stress-test pilot at LA Pride / KCON LA (15-20 robots, 2-day controlled deployment)</strong> — produces the festival-density operating data 6 months before Coachella commit</td></tr>
+    <tr><td><strong>4. Indio extreme heat</strong></td><td>Drone battery + chicken food-safety window</td><td>Coco ground delivery auto-activates; chicken at 165°F+ insulated containers</td></tr>
+    <tr><td><strong>5. App integration delay</strong></td><td>Stage Drops engineering not ready</td><td>BBQ menu-only with simple promo codes</td></tr>
+  </table>
+
+  <div class="three-col" style="margin-top: 14px;">
+    <div class="card" style="border-left: 3px solid var(--good);">
+      <h4 style="color: var(--good);">Tier 1 — Full activation (target)</h4>
+      <p style="font-size: 12px; margin-top: 4px;">Drone + Coco + House + App + Data. Press: full 3-firsts cycle.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--gold);">
+      <h4 style="color: var(--gold);">Tier 2 — Cable + Coco + House (drones blocked)</h4>
+      <p style="font-size: 12px; margin-top: 4px;">Visible cable delivery + Coco + House + App + Data. Hero shot retained without FAA risk.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--amber);">
+      <h4 style="color: var(--amber);">Tier 3 — Coco + House + App only</h4>
+      <p style="font-size: 12px; margin-top: 4px;">Coco + House + App + Data. Press: pre-arrival hospitality first.</p>
+    </div>
+  </div>
+  <div class="source-line">Source: FAA Part 108 NPRM (March 2026); DoorDash + Flytrex/Wing operational protocols; Coco Robotics climate operations; Coachella ops policy framework.</div>
+  <div class="slide-num">18</div>
+</section>
+
+<!-- 19. ROADMAP -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">19</span><span class="ht-section">Multi-Year Partnership Roadmap</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">Coachella 2027 is <span class="dd">Year 1 of a 5-year recurring DoorDash product</span>. By 2030, "Last Mile Drops" is a named platform feature DoorDash uses across 8+ U.S. cultural moments per year.</h1>
+
+  <table style="margin-top: 4px;">
+    <tr><th>Year</th><th>Activation</th><th>DoorDash investment</th><th>Strategic milestone</th></tr>
+    <tr class="dd-row">
+      <td><strong>2027</strong> · Y1</td>
+      <td>Coachella · 5 drops · proof of concept</td>
+      <td class="num">$1.2M</td>
+      <td>80-120K SoCal downloads · 18-25K DashPass converts · $18-28M EMV · "Last Mile Drops" trademark filed</td>
+    </tr>
+    <tr>
+      <td>2028 · Y2</td>
+      <td>Coachella (Yr-2 exclusivity) + Lollapalooza + ACL</td>
+      <td class="num">$2.4M</td>
+      <td>+200K downloads · House Drop becomes named DashPass benefit · 3-festival case study published</td>
+    </tr>
+    <tr>
+      <td>2029 · Y3</td>
+      <td>6 U.S. festivals + sports-event extension (March Madness, Super Bowl tailgate)</td>
+      <td class="num">$4.0M</td>
+      <td>"Last Mile Drops" branded as DoorDash product feature in app · 50+ partnered events</td>
+    </tr>
+    <tr>
+      <td>2030–31 · Y4-5</td>
+      <td>Year-round Last Mile Drops product line — group/event delivery</td>
+      <td class="num">$6.0M+/yr</td>
+      <td><strong>Recurring revenue line</strong> — Last Mile Drops contributes $80-150M annual GMV across event/group occasions</td>
+    </tr>
+  </table>
+
+  <div class="two-col" style="margin-top: 14px; gap: 26px;">
+    <div class="card dd-card">
+      <h4>This is not a sponsorship. It's a product launch.</h4>
+      <p style="margin-top: 4px; font-size: 12px;">Year 1 produces the proof-of-concept, the trademark, the case study. Years 2–3 turn it into a <strong>named platform feature DoorDash uses for any cultural/group occasion</strong>. Years 4–5, "Last Mile Drops" is a recurring revenue line in the P&L. <strong>Coachella 2027 is the launch event for a multi-year DoorDash product, not a one-off marketing spend.</strong></p>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--bbq-red);">
+      <h4 style="color: var(--bbq-red);">Year-1 → Year-5 NPV summary</h4>
+      <p style="margin-top: 4px; font-size: 12px;">5-year DoorDash investment: ~$15M cumulative. 5-year DoorDash returns (CAC arbitrage + EMV + DashPass LTV + Last Mile Drops GMV contribution): <strong>$180–340M.</strong> NPV-positive across every reasonable discount rate. <strong>The Coachella ROI is the gate; the productization is the prize.</strong></p>
+    </div>
+  </div>
+  <div class="source-line">Source: Aperol Coachella 4-year sponsorship escalation pattern (Sponsor United); industry festival ladder timing; DoorDash for-business B2B product roadmap.</div>
+  <div class="slide-num">19</div>
+</section>
+
+<!-- 20. DECISION RATIONALE -->
+<section class="slide" style="padding: 0;">
+  <div class="ceo-quote-bg">
+    <div>
+      <div class="ceo-quote">
+        $1.2M to launch the first <span class="ac">drone+robot+pre-arrival+app activation</span> at a U.S. festival — at $10–14 effective CAC, $18–28M EMV, +12–18pp brand-equity lift, and a 24-month B2B recruitment asset, locked for 3 years against Uber Eats.
+        <div class="ceo-quote-attr">— DOORDASH PARTNERSHIPS DECISION RATIONALE, IN ONE LINE</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num" style="color: rgba(255,255,255,0.7);">20</div>
+</section>
+
+<!-- 21. THE ASK -->
+<section class="slide">
+  <div class="slide-header">
+    <div class="header-title-bar"><span class="ht-num">21</span><span class="ht-section">The Ask · Next Steps</span></div>
+    <div class="header-mark"><span class="bbq">bb.q</span> × <span class="dd">DOORDASH</span> · COACHELLA 2027</div>
+  </div>
+  <div class="header-rule"></div>
+  <h1 class="takeaway">Three decisions for DoorDash leadership in <span class="dd">Q1 2026</span>. Coachella negotiation window opens Q2.</h1>
+
+  <div style="margin-top: 8px;">
+    <div class="gate-row">
+      <div class="num">1</div>
+      <div>
+        <h4>Strategic alignment — by mid-Feb 2026</h4>
+        <p>Approve concept direction at DoorDash partnership leadership level. Confirm appetite for tier-1 festival anchor in 2027.</p>
+      </div>
+    </div>
+    <div class="gate-row">
+      <div class="num">2</div>
+      <div>
+        <h4>Budget commitment — by mid-Mar 2026</h4>
+        <p>Authorize Gate-1 partnership development capital. Designates this as a tier-1 exploration project.</p>
+      </div>
+    </div>
+    <div class="gate-row">
+      <div class="num">3</div>
+      <div>
+        <h4>Working group launch — by April 1, 2026</h4>
+        <p>Stand up joint DoorDash + BBQ working group. Members: DoorDash partnerships, brand marketing, Coco product team; BBQ U.S. CMO. Cadence: weekly through Gate 2.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top: 14px; gap: 28px;">
+    <div class="card dd-card" style="border-color: var(--dd-red); border-width: 2px;">
+      <h4>What BBQ commits in return</h4>
+      <ul class="bullets dd" style="font-size: 12px; margin-top: 6px;">
+        <li>3-year exclusive Korean-QSR partnership LOI.</li>
+        <li>Festival-pricing chicken supply + on-site kitchen + booth + ops.</li>
+        <li>Co-marketing across BBQ Instagram (87K), TikTok (202K), email lists, in-store.</li>
+        <li>Korean delivery-data anonymized sharing for DoorDash Asia roadmap.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color: var(--bbq-red); border-width: 2px;">
+      <h4>What DoorDash gains in return</h4>
+      <ul class="bullets" style="font-size: 12px; margin-top: 6px;">
+        <li>Coachella tier-1 partnership + tech-flagship moment for $1.2M.</li>
+        <li>3-year category exclusivity vs Uber Eats / Grubhub.</li>
+        <li>$10–14 effective CAC + $18–28M EMV in Year 1.</li>
+        <li>24-month B2B case study + Flavor Heatmap data product.</li>
+        <li>Coachella Year-2 option for 2028 expansion.</li>
+        <li>House Drop as recurring product for group-rental segment.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="source-line">Source: Industry partnership-development standard practice; DoorDash partnership-team historical pacing; BBQ Chicken U.S. commitment terms — final contract subject to Q2-Q3 2026 negotiation.</div>
+  <div class="slide-num">21</div>
+</section>
+
+<!-- 22. CO-BRANDING CLOSE -->
+<section class="slide cover">
+  <div class="cover-bg"></div>
+  <div class="cover-content">
+    <div class="cover-eyebrow">In Closing</div>
+    <div class="lmd-mark" style="font-size: 56px;"><span class="lm">LAST MILE</span> <span class="drops">DROPS.</span></div>
+    <h1 style="font-size: 22px; margin-top: 12px;">Coachella 2027 is the single highest-leverage<br/>partnership move <span style="color: #FF7A6B;">DoorDash</span> can make this year.</h1>
+    <div class="cover-sub" style="margin-top: 4px;">DoorDash already owns the assets. BBQ owns the cultural permission. Coachella owns the audience. <strong>Together we own the case study.</strong></div>
+    <div style="margin-top: 24px;">
+      <div class="cobrand-lockup">
+        <div class="cl-bbq">bb.q <span>CHICKEN</span></div>
+        <div class="cl-x">×</div>
+        <div class="cl-dd">DoorDash</div>
+      </div>
+    </div>
+    <div style="margin-top: 12px; font-size: 13px; color: rgba(245,240,230,0.78); letter-spacing: 0.5px;">Last Mile Drops · Your Door to More — at Coachella 2027.</div>
+  </div>
+  <div class="cover-footer">
+    <div class="cover-footer-text">For follow-up: BBQ Chicken U.S. CMO · Nurihaus partnerships</div>
+    <div class="cover-footer-text">APRIL 2026</div>
+  </div>
+  <div class="slide-num" style="color: rgba(255,255,255,0.5);">22</div>
+</section>
+
+</div>
 </body>
 </html>
